@@ -1,0 +1,46 @@
+# Configuration des chemins de données
+# Tous les chemins sont relatifs à la racine du projet
+
+# Données brutes (non versionnées)
+raw:
+  data_dir: "data/raw"
+  main_file: "data/raw/2016_Building_Energy_Benchmarking.csv"
+  
+# Données intermédiaires (non versionnées)
+interim:
+  data_dir: "data/interim"
+  loaded_data: "data/interim/loaded_data.parquet"
+  quality_checked: "data/interim/quality_checked.parquet"
+  
+# Données traitées (non versionnées)
+processed:
+  data_dir: "data/processed"
+  train: "data/processed/train.parquet"
+  validation: "data/processed/validation.parquet"
+  test: "data/processed/test.parquet"
+  
+# Métadonnées (versionnées)
+metadata:
+  file: "data/metadata.json"
+  
+# Figures
+figures:
+  root_dir: "figures"
+  notebook_0: "figures/notebook_0"
+  notebook_1: "figures/notebook_1"
+  notebook_2: "figures/notebook_2"
+  notebook_3: "figures/notebook_3"
+  notebook_4: "figures/notebook_4"
+  notebook_5: "figures/notebook_5"
+  notebook_6: "figures/notebook_6"
+  
+# Rapports
+reports:
+  root_dir: "reports"
+  notebook_0: "reports/notebook_0"
+  notebook_1: "reports/notebook_1"
+  notebook_2: "reports/notebook_2"
+  notebook_3: "reports/notebook_3"
+  notebook_4: "reports/notebook_4"
+  notebook_5: "reports/notebook_5"
+  notebook_6: "reports/notebook_6"

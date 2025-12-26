@@ -1,0 +1,37 @@
+# Configuration principale du projet Seattle Energy ML
+# Date: 26 Décembre 2025
+
+defaults:
+  - data: paths
+  - eda: params
+  - _self_
+
+# Informations projet
+project:
+  name: "seattle_energy_2016_ml"
+  description: "Prédiction de la consommation énergétique des bâtiments de Seattle en 2016"
+  version: "1.0.0"
+
+# Configuration globale
+global:
+  random_seed: 42
+  verbose: true
+  
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+# MLflow
+mlflow:
+  tracking_uri: "file:./mlruns"
+  experiment_name: "seattle_energy_2016_eda"
+  
+# Great Expectations
+great_expectations:
+  context_root_dir: "great_expectations"
+  
+# Reproductibilité
+reproducibility:
+  set_seed: true
+  seed_value: 42
