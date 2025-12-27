@@ -1,2 +1,44 @@
-# Auto detect text files and perform LF normalization
+####################################
+# Global settings
+####################################
 * text=auto
+
+####################################
+# Code files
+####################################
+*.py  text eol=lf
+*.R   text eol=lf
+*.ipynb text
+*.sql text eol=lf
+
+####################################
+# Data files
+####################################
+*.csv text
+*.tsv text
+*.json text
+*.yaml text
+*.yml  text
+
+####################################
+# Binary files (no diff)
+####################################
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+
+####################################
+# Models and large files (use Git LFS)
+####################################
+*.pkl filter=lfs diff=lfs merge=lfs -text
+*.joblib filter=lfs diff=lfs merge=lfs -text
+*.h5 filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+
+####################################
+# Archives
+####################################
+*.zip binary
+*.tar binary
+*.gz  binary
