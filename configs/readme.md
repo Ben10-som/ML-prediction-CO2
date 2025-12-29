@@ -1,0 +1,1 @@
+# Configurations YAML pour Hydra

@@ -11,6 +11,7 @@ project:
   name: "seattle_energy_2016_ml"
   description: "Prédiction de la consommation énergétique des bâtiments de Seattle en 2016"
   version: "1.0.0"
+  root: null
 
 # Configuration globale
 global:

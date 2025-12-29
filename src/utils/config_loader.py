@@ -4,102 +4,97 @@ Module de gestion de la configuration avec Hydra.
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
 from omegaconf import DictConfig, OmegaConf
 
-# Configuration du logger
+from .eda_logger import setup_eda_logger
+
 logger = logging.getLogger(__name__)
 
+# racine projet (depuis src/utils/config_loader.py -> remontée de 2 niveaux)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+OmegaConf.register_new_resolver(
+    "project_root",
+    lambda: str(PROJECT_ROOT),
+    replace=True
+)
 
-def load_config(
-    config_name: str = "config", 
-    overrides: Optional[List[str]] = None
-) -> DictConfig:
+def load_config(config_name: str = "config", overrides: Optional[List[str]] = None) -> DictConfig:
     """
-    Charge la configuration Hydra de manière robuste.
-
-    Args:
-        config_name: Nom du fichier de configuration (sans l'extension .yaml).
-        overrides: Liste d'arguments de surcharge (ex: ["db.port=5432"]).
-
-    Returns:
-        DictConfig: Objet de configuration OmegaConf.
+    Charge la configuration Hydra.
+    Garantit la présence de cfg.project.root via OmegaConf.merge (évite affectation d'attribut).
     """
-    # Nettoyage de l'instance Hydra globale (essentiel pour les Notebooks)
     GlobalHydra.instance().clear()
 
-    # Le chemin doit être relatif au fichier actuel ou au point d'entrée
-    # Si ce fichier est dans src/utils, on remonte vers ../../configs
-    try:
-        with initialize(version_base="1.3", config_path="../../configs"):
-            cfg = compose(config_name=config_name, overrides=overrides or [])
-            logger.info("Configuration chargée avec succès.")
-            return cfg
-    except Exception as e:
-        logger.error(f"Erreur lors du chargement de la configuration: {e}")
-        raise
+    with initialize(version_base="1.3", config_path="../../configs"):
+        cfg = compose(config_name=config_name, overrides=overrides or [])
 
-
-def get_paths(cfg: DictConfig) -> Dict[str, str]:
-    """
-    Extrait et centralise les chemins définis dans la configuration.
-    """
+    # Injecter project.root sans faire d'affectation d'attribut direct (évite Pylance warnings)
     try:
-        return {
-            # Données
-            "raw_dir": cfg.data.raw.data_dir,
-            "raw_data": cfg.data.raw.main_file,
-            "interim_dir": cfg.data.interim.data_dir,
-            "processed_dir": cfg.data.processed.data_dir,
-            
-            # Sorties
-            "figures_dir": cfg.data.figures.root_dir,
-            "reports_dir": cfg.data.reports.root_dir,
-            
-            # Métadonnées
-            "metadata": cfg.data.metadata.file,
-        }
-    except AttributeError as e:
-        logger.error(f"Clé manquante dans le fichier de configuration : {e}")
-        raise
+        OmegaConf.set_struct(cfg, False)
+        cfg = OmegaConf.merge(cfg, {"project": {"root": str(PROJECT_ROOT)}})
+        OmegaConf.set_struct(cfg, True)
+    except Exception:
+        logger.exception("Impossible de garantir project.root dans la config")
+
+    logger.info(f"Configuration '{config_name}' chargée (project_root={cfg.project.root})")
+    return cfg
+
 
 
 def create_directories(cfg: DictConfig) -> None:
     """
-    Crée récursivement tous les répertoires nécessaires au projet.
+    Crée les dossiers dont la config indique le chemin.
+    Les chemins relatifs sont résolus par rapport à PROJECT_ROOT.
     """
-    paths = get_paths(cfg)
-    
-    # On filtre pour ne garder que les entrées finissant par '_dir' 
-    # ou on sélectionne manuellement les dossiers à créer
-    dirs_to_create = {
-        paths[k] for k in paths if k.endswith("_dir") or "root" in k
-    }
+    try:
+        sections = [
+            cfg.data.raw,
+            cfg.data.interim,
+            cfg.data.processed,
+            cfg.data.figures,
+            cfg.data.reports
+        ]
+    except AttributeError as e:
+        logger.warning(f"Clé de configuration manquante pour la création de dossiers : {e}")
+        return
 
-    for directory in dirs_to_create:
-        dir_path = Path(directory)
-        if not dir_path.exists():
-            dir_path.mkdir(parents=True, exist_ok=True)
-            logger.info(f"Répertoire créé : {dir_path}")
-        else:
-            logger.debug(f"Le répertoire existe déjà : {dir_path}")
+    for section in sections:
+        try:
+            path_str = section.get("dir") or section.get("data_dir")
+        except Exception:
+            logger.warning("Section de configuration malformée, ignorée.")
+            continue
 
+        if not path_str:
+            logger.debug("Chemin absent pour une section, ignoré.")
+            continue
 
-def get_random_seed(cfg: DictConfig, default: int = 42) -> int:
-    """
-    Récupère la seed de reproductibilité. 
-    Note: 'global' étant un mot-clé Python, il est préférable d'utiliser 
-    une clé nommée 'settings' ou 'params' dans votre YAML.
-    """
-    # Utilisation de .get pour éviter un crash si la clé n'existe pas
-    return cfg.get("random_seed", default)
+        if isinstance(path_str, str) and (path_str.strip().lower() == "none" or path_str.strip() == ""):
+            logger.warning(f"Chemin invalide résolu: '{path_str}'. Ignoré.")
+            continue
+
+        p = Path(path_str)
+        if not p.is_absolute():
+            p = (PROJECT_ROOT / p).resolve()
+
+        try:
+            p.mkdir(parents=True, exist_ok=True)
+            logger.info(f"Répertoire prêt : {p}")
+        except Exception:
+            logger.exception(f"Échec création répertoire : {p}")
 
 
 if __name__ == "__main__":
-    # Test rapide
-    logging.basicConfig(level=logging.INFO)
+
+    # Test du chargement
     config = load_config()
+    # Configurer le logger via eda_logger
+    setup_eda_logger(config)
+    logger = logging.getLogger(__name__)
+    create_directories(config)
+    # Affichage pour vérification
     print(OmegaConf.to_yaml(config))
