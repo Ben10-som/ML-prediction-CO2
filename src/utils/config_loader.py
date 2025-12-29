@@ -20,35 +20,37 @@ def load_config(config_name: str = "config", overrides: Optional[List[str]] = No
     """
     GlobalHydra.instance().clear()
 
-    # Le chemin config_path est relatif au dossier contenant ce script
-    # Utiliser Hydra 1.3
     with initialize(version_base="1.3", config_path="../../configs"):
-        cfg = compose(config_name=config_name, overrides=overrides)
+        cfg = compose(config_name=config_name, overrides=overrides or [])
         logger.info(f"Configuration '{config_name}' chargée avec succès.")
         return cfg
 
 def create_directories(cfg: DictConfig) -> None:
     """
-    Crée les répertoires de données et de résultats définis dans la config.
+    Crée dynamiquement les répertoires définis dans la section data et outputs.
     """
     try:
-        # Liste directe des chemins à créer (basée sur la structure de ton YAML)
-        directories = [
-            cfg.data.raw.data_dir,
-            cfg.data.interim.data_dir,
-            cfg.data.processed.data_dir,
-            cfg.data.figures.root_dir,
-            cfg.data.reports.root_dir
+        # On itère sur les sections de données (raw, interim, processed)
+        # et les sorties (figures, reports)
+        sections = [
+            cfg.data.raw, 
+            cfg.data.interim, 
+            cfg.data.processed, 
+            cfg.data.figures, 
+            cfg.data.reports
         ]
 
-        for path in directories:
-            p = Path(path)
-            if not p.exists():
-                p.mkdir(parents=True, exist_ok=True)
-                logger.info(f"Répertoire créé : {p}")
+        for section in sections:
+            # On cherche la clé 'dir' ou 'data_dir' (pour compatibilité)
+            path_str = section.get("dir") or section.get("data_dir")
+            if path_str:
+                p = Path(path_str)
+                if not p.exists():
+                    p.mkdir(parents=True, exist_ok=True)
+                    logger.info(f"Répertoire créé : {p}")
                 
     except AttributeError as e:
-        logger.warning(f"Impossible de créer certains dossiers (clé manquante) : {e}")
+        logger.warning(f"Clé de configuration manquante pour la création de dossiers : {e}")
 
 if __name__ == "__main__":
 
