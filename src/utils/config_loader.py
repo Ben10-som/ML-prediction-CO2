@@ -10,7 +10,7 @@ from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
 from omegaconf import DictConfig, OmegaConf
 
-from eda_logger import setup_eda_logger # Config des log depuis eda_loger
+from .eda_logger import setup_eda_logger # Config des log depuis eda_loger
 
 logger = logging.getLogger(__name__)
 
