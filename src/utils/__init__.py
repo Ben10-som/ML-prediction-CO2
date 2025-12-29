@@ -4,7 +4,7 @@ Ce package regroupe des fonctions d'aide réutilisables
 pour la configuration et la gestion des chemins.
 """
 
-from .config_loader import load_config
+from .config_loader import load_config,create_directories
 # Cela permet de les rendre accessibles directement via src.utils
 
 __all__ = ['load_config', 'create_directories']
