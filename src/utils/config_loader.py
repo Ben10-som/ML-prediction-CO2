@@ -10,6 +10,8 @@ from hydra import compose, initialize
 from hydra.core.global_hydra import GlobalHydra
 from omegaconf import DictConfig, OmegaConf
 
+from eda_logger import setup_eda_logger # Config des log depuis eda_loger
+
 logger = logging.getLogger(__name__)
 
 def load_config(config_name: str = "config", overrides: Optional[List[str]] = None) -> DictConfig:
@@ -49,11 +51,12 @@ def create_directories(cfg: DictConfig) -> None:
         logger.warning(f"Impossible de créer certains dossiers (clé manquante) : {e}")
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    
+
     # Test du chargement
     config = load_config()
+    # Configurer le logger via eda_logger 
+    setup_eda_logger(config) 
+    logger = logging.getLogger(__name__)
     create_directories(config)
-    
     # Affichage pour vérification
     print(OmegaConf.to_yaml(config))
