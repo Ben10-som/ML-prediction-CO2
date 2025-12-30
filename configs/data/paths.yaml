@@ -16,6 +16,8 @@ processed:
 
 metadata:
   file: "data/metadata.json"
+  source_file: "socrata_metadata_2016.json" 
+  output_doc: "data_dictionary_auto.md"
 
 
 figures:
