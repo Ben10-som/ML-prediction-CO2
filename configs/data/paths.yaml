@@ -4,22 +4,20 @@ raw:
   file: "2016_Building_Energy_Benchmarking.csv"
   # Note: Utilise bien l'URL 'raw' pour que pandas puisse le lire directement
   url: "https://raw.githubusercontent.com/MouslyDiaw/handson-machine-learning/master/data/2016_Building_Energy_Benchmarking.csv"
-
+# Données silver (Nettoyées mais non transformées)
 interim:
   dir: "data/interim"
-  loaded: "loaded_data.parquet"
-  quality: "quality_checked.parquet"
+  file: "data_cleaned.csv"
 
+# Données finales (Prêtes pour le modèle)
 processed:
   dir: "data/processed"
-  train: "train.parquet"
-  val: "validation.parquet"
-  test: "test.parquet"
+  file: "data_final.csv"
 
 metadata:
   file: "data/metadata.json"
 
-# Utilisation d'un préfixe commun pour simplifier
+
 figures:
   dir: "figures"
 reports:

@@ -1,39 +1,12 @@
-# Paramètres pour l'Analyse Exploratoire des Données
-
-# Affichage général
-display:
-  max_rows: 100
-  max_columns: 50
-  precision: 3
-  
-# Visualisation
-visualization:
-  figure_size: [12, 6]
-  figure_dpi: 100
-  style: "seaborn-v0_8-darkgrid"
-  palette: "husl"
-  context: "notebook"
-  
-# Qualité des données
-quality:                   # sert à déclencher des alertes ou filtrer les colonnes/problèmes
-  missing_threshold: 0.30  # 30% max de valeurs manquantes acceptable
-  duplicate_threshold: 0.01  # 1% max de doublons acceptable
-  
-# Variables cibles
-target:
-  primary: "A_DEFINIRE"
-  secondary: "A_DEFINIRE"
-  alternative: "A_DEFINIRE"
-  
-# Colonnes identifiantes (à exclure de la modélisation)
-id_columns:
-  - "OSEBuildingID"
-  - "Les_autres_IDs_à_définir"
-
-  
 # Paramètres de chargement
 loading:
   encoding: "utf-8"
-  low_memory: false # Par défaut, pandas essaie de charger les gros fichiers en petits morceaux pour économiser de la mémoire (low_memory=True)
-                    # Mais ça peut provoquer des erreurs de type (par ex. une colonne détectée comme "object" alors qu’elle contient des nombres)
-  na_values: ["", "NA", "N/A", "null", "NULL", "None", "NaN"] # Pas necessaire dans notre cas mais utile en général
+  low_memory: false
+  na_values: ["", "NA", "N/A", "null", "NaN"]
+
+# Paramètres visuels pour tes notebooks
+display:
+  max_rows: 50
+  max_columns: 30
+  style: "seaborn-v0_8"
+
