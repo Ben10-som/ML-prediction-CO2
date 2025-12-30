@@ -111,38 +111,49 @@ def test_load_data_raw_local_exists(mock_cfg):
         assert len(df) == 1
         assert df.iloc[0]["OSEBuildingID"] == 99
 
-def test_save_metadata_structure(mock_cfg):
-    """
-    Teste que save_metadata produit un JSON valide avec les bonnes clés.
-    """
-    # 1. Setup : DataFrame factice
-    df = pd.DataFrame({
-        "OSEBuildingID": [1, 2, 3],
-        "Price": [10.5, 20.0, 15.5],
-        "Category": ["A", "B", "A"]
-    })
+@patch("src.data.load_data.getpass.getuser") # On mock l'utilisateur
+def test_load_data_audit_log(mock_user, mock_cfg, tmp_path):
+    """Teste que les métadonnées détectent les changements (Audit Log)."""
+    mock_user.return_value = "tester_bot"
     
-    # Conversion explicite des types pour correspondre à ce que pandas fait souvent
-    df["Category"] = df["Category"].astype("category")
+    # 1. Setup : Création du dossier et config
+    mock_cfg.data.raw.dir = str(tmp_path)
+    mock_cfg.data.metadata.file = str(tmp_path / "audit.json")
+    
+    file_path = tmp_path / mock_cfg.data.raw.file
+    
+    # 2. Premier chargement (Version 1)
+    file_path.write_text("ID,Val\n1,A", encoding="utf-8")
+    df1 = load_data_raw(mock_cfg) # Crée le fichier audit.json
+    
+    # Vérif qu'il a créé le fichier
+    audit_path = Path(mock_cfg.data.metadata.file)
+    assert audit_path.exists()
+    
+    with open(audit_path) as f:
+        history = json.load(f)
+        assert len(history) == 1
+        assert history[0]["status"] == "created"
+        assert history[0]["file_hash"] is not None
 
-    # 2. Action
-    save_metadata(df, mock_cfg)
+    # 3. Deuxième chargement SANS modif (ne doit pas ajouter de ligne)
+    df2 = load_data_raw(mock_cfg)
+    with open(audit_path) as f:
+        history = json.load(f)
+        assert len(history) == 1 # Toujours 1 seule entrée car pas de chgmt
 
-    # 3. Vérifications
-    meta_path = Path(mock_cfg.data.metadata.file)
-    assert meta_path.exists(), "Le fichier metadata.json n'a pas été créé"
+    # 4. Modification "Sournoise" des données (Version 2)
+    file_path.write_text("ID,Val\n1,B", encoding="utf-8") # 'A' devient 'B'
+    
+    df3 = load_data_raw(mock_cfg)
+    
+    with open(audit_path) as f:
+        history = json.load(f)
+        assert len(history) == 2 # Une nouvelle entrée !
+        assert history[-1]["status"] == "modified"
+        assert history[-1]["file_hash"] != history[0]["file_hash"]
 
-    with open(meta_path, "r", encoding="utf-8") as f:
-        metadata = json.load(f)
 
-    # Vérification du contenu
-    expected_keys = ["dataset", "source_file", "n_rows", "n_columns", "columns", "dtypes", "memory_usage_mb"]
-    for key in expected_keys:
-        assert key in metadata, f"Clé manquante dans metadata : {key}"
-
-    assert metadata["n_rows"] == 3
-    assert metadata["n_columns"] == 3
-    assert "Category" in metadata["dtypes"]
 
 # =============================================================================
 # FIN DU TEST
