@@ -3,3 +3,7 @@ env/
 **/*.parquet
 **/__pycache__/
 .vscode/
+test/tmp/
+
+ # Log d'execution et résultats de Hydra. permet de tracer chaque run Hydra et garentir la reproductibilité.
+outputs/**

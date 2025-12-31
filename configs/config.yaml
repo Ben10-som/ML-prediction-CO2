@@ -23,16 +23,3 @@ logging:
   level: "INFO"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
   
-# MLflow
-mlflow:
-  tracking_uri: "file:./mlruns"
-  experiment_name: "seattle_energy_2016_eda"
-  
-# Great Expectations
-great_expectations:
-  context_root_dir: "great_expectations"
-  
-# Reproductibilité
-reproducibility:
-  set_seed: true
-  seed_value: 42
