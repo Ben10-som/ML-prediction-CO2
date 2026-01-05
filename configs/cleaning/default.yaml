@@ -27,5 +27,7 @@ section_1:
     - "YearsENERGYSTARCertified"
     - "ThirdLargestPropertyUseType"
     - "ThirdLargestPropertyUseTypeGFA"
-  # Seuil pour la suppression des lignes
-  max_missing_row_threshold: 0.30
+  thresholds:
+    low_missing_pct: 0.01      # Seuil pour imputation par groupe (1%)
+    row_max_missing_pct: 0.30  # Seuil suppression lignes (30%)
+  compliance_value: "Compliant"
