@@ -1,0 +1,31 @@
+# Ordre d'exécution des étapes de nettoyage
+pipeline:
+  - section_0_filter
+  - section_1_missing
+  - section_2_coherence
+  - section_3_outliers
+  - section_4_reliability
+  - section_5_duplicates
+
+# Paramètres spécifiques par section
+section_0:
+  exclude_building_types: [
+    "Multifamily MR (5-9)",
+    "Multifamily HR (10+)",
+    "Multifamily LR (1-4)"]
+
+
+  exclude_primary_property_types: [
+    "Residence Hall",
+    "Senior Care Community",
+    "Low-Rise Multifamily"]
+
+section_1:
+  cols_to_drop: 
+    - "Comments"
+    - "Outlier"
+    - "YearsENERGYSTARCertified"
+    - "ThirdLargestPropertyUseType"
+    - "ThirdLargestPropertyUseTypeGFA"
+  # Seuil pour la suppression des lignes
+  max_missing_row_threshold: 0.30
