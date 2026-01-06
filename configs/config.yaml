@@ -4,6 +4,7 @@
 defaults:
   - data: paths
   - eda: params
+  - cleaning: default  # <--- AJOUTEZ CETTE LIGNE
   - _self_
 
 # Informations projet
@@ -11,7 +12,7 @@ project:
   name: "seattle_energy_2016_ml"
   description: "Prédiction de la consommation énergétique des bâtiments de Seattle en 2016"
   version: "1.0.0"
-  root: null
+  root: ${project_root:} # Optionnel : utilise le resolver pour plus de propreté
 
 # Configuration globale
 global:
@@ -22,4 +23,3 @@ global:
 logging:
   level: "INFO"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-  

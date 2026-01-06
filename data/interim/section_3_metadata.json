@@ -1,0 +1,16 @@
+{
+    "step": "section_3",
+    "timestamp": "2026-01-06T13:33:27.660135",
+    "rows_before": 1458,
+    "rows_after": 1402,
+    "rows_removed": 56,
+    "cols_before": 44,
+    "cols_after": 53,
+    "details": {
+        "corrections_energy_wn_zero": 6,
+        "outliers_intensity_removed": 56,
+        "outliers_intensity_saved_by_gfa": 2,
+        "massive_surfaces_preserved": 70,
+        "high_rise_preserved": 32
+    }
+}
