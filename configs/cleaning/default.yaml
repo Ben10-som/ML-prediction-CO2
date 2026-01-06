@@ -1,9 +1,9 @@
 # Ordre d'exécution des étapes de nettoyage
 pipeline:
   - section_0
-  - section_1
   - section_2
   - section_3
+  - section_1
 
 # Paramètres spécifiques par section
 section_0:
