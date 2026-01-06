@@ -1,0 +1,25 @@
+{
+    "step": "section_0",
+    "timestamp": "2026-01-06T13:33:27.210870",
+    "rows_before": 3376,
+    "rows_after": 1624,
+    "rows_removed": 1752,
+    "cols_before": 46,
+    "cols_after": 46,
+    "details": {
+        "excluded_building_types": [
+            "Multifamily MR (5-9)",
+            "Multifamily HR (10+)",
+            "Multifamily LR (1-4)"
+        ],
+        "excluded_primary_property_types": [
+            "Residence Hall",
+            "Senior Care Community",
+            "Low-Rise Multifamily"
+        ],
+        "replacements": {
+            "Nonresidential WA": "NonResidential"
+        },
+        "action": "Restriction aux populations non-résidentielles + harmonisation des libellés"
+    }
+}
