@@ -1,11 +1,9 @@
 # Ordre d'exécution des étapes de nettoyage
 pipeline:
-  - section_0_filter
-  - section_1_missing
-  - section_2_coherence
-  - section_3_outliers
-  - section_4_reliability
-  - section_5_duplicates
+  - section_0
+  - section_1
+  - section_2
+  - section_3
 
 # Paramètres spécifiques par section
 section_0:
@@ -46,10 +44,8 @@ section_2:
     primary_usage: "PrimaryPropertyType"
     largest_use_gfa: "LargestPropertyUseTypeGFA"
     n_buildings: "NumberofBuildings"
-  
   values:
     campus_label: "Campus"
-  
   thresholds:
     min_gfa: 0
     min_energy: 0
@@ -57,3 +53,33 @@ section_2:
     ratio_high: 1.05          # Seuil pour arbitrage n_buildings
     ratio_base: 1.00          # Seuil de cohérence standard
     energy_sum_error_max: 0.10 # 10% d'écart max
+
+section_3:
+  zscore_vars:
+    - 'SiteEnergyUse(kBtu)'
+    - 'SiteEnergyUseWN(kBtu)'
+    - 'TotalGHGEmissions'
+    - 'SiteEUIWN(kBtu/sf)'
+    - 'SourceEUI(kBtu/sf)'
+    - 'SourceEUIWN(kBtu/sf)'
+    - 'Electricity(kWh)'
+    - 'Electricity(kBtu)'
+  
+  iqr_vars:
+    - "NumberofFloors"
+    - 'GHGEmissionsIntensity'
+    - 'SiteEUI(kBtu/sf)'
+    - 'NaturalGas(therms)'
+    - 'NaturalGas(kBtu)'
+    - 'SteamUse(kBtu)'
+    - 'PropertyGFATotal'
+    - 'LargestPropertyUseTypeGFA'
+    - 'SecondLargestPropertyUseTypeGFA'
+    - 'ENERGYSTARScore'
+
+  thresholds:
+    zscore_limit: 3.0
+    zscore_sum_limit: 3
+    iqr_multiplier: 3.0
+  
+  massive_structures_types: ["University", "Hospital", "Large Office"]
