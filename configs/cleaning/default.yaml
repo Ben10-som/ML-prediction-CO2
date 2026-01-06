@@ -49,10 +49,10 @@ section_2:
   thresholds:
     min_gfa: 0
     min_energy: 0
-    ratio_critical: 1.30      # Suppression immédiate au-dessus
+    ratio_critical: 1.40      # Suppression immédiate au-dessus
     ratio_high: 1.05          # Seuil pour arbitrage n_buildings
     ratio_base: 1.00          # Seuil de cohérence standard
-    energy_sum_error_max: 0.10 # 10% d'écart max
+    energy_sum_error_max: 0.25 # 25% d'écart max
 
 section_3:
   zscore_vars:
@@ -78,8 +78,8 @@ section_3:
     - 'ENERGYSTARScore'
 
   thresholds:
-    zscore_limit: 3.0
-    zscore_sum_limit: 3
-    iqr_multiplier: 3.0
+    zscore_limit: 4.0
+    zscore_sum_limit: 4
+    iqr_multiplier: 4.0
   
   massive_structures_types: ["University", "Hospital", "Large Office"]
