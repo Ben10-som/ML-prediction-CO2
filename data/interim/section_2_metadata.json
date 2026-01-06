@@ -1,17 +1,17 @@
 {
     "step": "section_2",
-    "timestamp": "2026-01-06T13:33:27.387052",
+    "timestamp": "2026-01-06T15:53:43.536589",
     "rows_before": 1505,
     "rows_after": 1458,
     "rows_removed": 47,
-    "cols_before": 41,
-    "cols_after": 44,
+    "cols_before": 45,
+    "cols_after": 43,
     "details": {
         "rows_removed_invalid_gfa": 0,
         "rows_removed_invalid_energy_vals": 1,
         "total_floors_imputed": 12,
-        "campus_floors_imputed": 1,
+        "campus_floors_imputed": 2,
         "rows_removed_gfa_ratio_incoherent": 31,
-        "rows_removed_energy_sum_incoherent": 15
+        "rows_removed_energy_sum_incoherent": 16
     }
 }
