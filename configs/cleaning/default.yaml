@@ -31,3 +31,29 @@ section_1:
     low_missing_pct: 0.01      # Seuil pour imputation par groupe (1%)
     row_max_missing_pct: 0.30  # Seuil suppression lignes (30%)
   compliance_value: "Compliant"
+
+
+section_2:
+  columns:
+    gfa_total: "PropertyGFATotal"
+    energy_total: "SiteEnergyUse(kBtu)"
+    ghg_emissions: "TotalGHGEmissions"
+    electricity: "Electricity(kBtu)"
+    natural_gas: "NaturalGas(kBtu)"
+    steam: "SteamUse(kBtu)"
+    floors: "NumberofFloors"
+    building_type: "BuildingType"
+    primary_usage: "PrimaryPropertyType"
+    largest_use_gfa: "LargestPropertyUseTypeGFA"
+    n_buildings: "NumberofBuildings"
+  
+  values:
+    campus_label: "Campus"
+  
+  thresholds:
+    min_gfa: 0
+    min_energy: 0
+    ratio_critical: 1.30      # Suppression immédiate au-dessus
+    ratio_high: 1.05          # Seuil pour arbitrage n_buildings
+    ratio_base: 1.00          # Seuil de cohérence standard
+    energy_sum_error_max: 0.10 # 10% d'écart max
