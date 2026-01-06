@@ -7,83 +7,72 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="numpy")
 
 class Section3(BaseCleaner):
     def run(self, df):
+        df = df.copy()
         df_before = df.copy()
         s3_cfg = self.cfg.cleaning.section_3
         audit = {}
+        df["exclusion_reason"] = None
 
-        # 1. Restauration de la vérité physique (Weather Normalized)
+        # 1. Restauration de la vérité physique
         mask_wn_zero = (df['SiteEnergyUse(kBtu)'] > 0) & (df['SiteEnergyUseWN(kBtu)'] == 0)
         df.loc[mask_wn_zero, 'SiteEnergyUseWN(kBtu)'] = df.loc[mask_wn_zero, 'SiteEnergyUse(kBtu)']
-        audit["corrections_energy_wn_zero"] = int(mask_wn_zero.sum())
 
-        # 2. Recalcul des indicateurs d'intensité (EUI)
-        # On utilise PropertyGFABuilding(s) pour la précision thermique si disponible
+        # 2. Recalcul des intensités (EUI)
         surface_col = 'PropertyGFABuilding(s)' if 'PropertyGFABuilding(s)' in df.columns else 'PropertyGFATotal'
-        
         if 'SiteEnergyUseWN(kBtu)' in df.columns:
             df['SiteEUIWN(kBtu/sf)'] = df['SiteEnergyUseWN(kBtu)'] / df[surface_col]
-            # Nettoyage des valeurs infinies issues de surfaces à 0
             df.replace([np.inf, -np.inf], np.nan, inplace=True)
             df['SiteEUIWN(kBtu/sf)'] = df['SiteEUIWN(kBtu/sf)'].fillna(0)
 
-        # 3. Détection IQR 3.0 segmentée par type de propriété
-        # Note : On traite ici les distributions (log-normales ou non) avec le même seuil 3.0
-        for col in s3_cfg.iqr_vars:
-            if col not in df.columns:
-                continue 
+        # 3. Détection IQR (Calcul des drapeaux)
+        # On s'assure que TotalGHGEmissions est traité même s'il est oublié dans le YAML
+        vars_to_process = list(set(s3_cfg.iqr_vars + ['TotalGHGEmissions']))
+        
+        for col in vars_to_process:
+            if col not in df.columns: continue 
             
-            flag_col = f"is_outlier_iqr_{col}"
-            df[flag_col] = 0
-            
-            # Prétraitement spécifique pour les étages
-            temp_df = df.copy()
-            if col == "NumberofFloors":
-                temp_df = temp_df[temp_df[col] > 0]
-
-            def get_iqr_flags(group):
+            def get_iqr_flags(group, multiplier=3.0):
                 clean_group = group.dropna()
-                if len(clean_group) < 2:
-                    return pd.Series(False, index=group.index)
-                
-                q1 = clean_group.quantile(0.25)
-                q3 = clean_group.quantile(0.75)
+                if len(clean_group) < 2: return pd.Series(False, index=group.index)
+                q1, q3 = clean_group.quantile(0.25), clean_group.quantile(0.75)
                 iqr = q3 - q1
-                
-                if iqr == 0:
-                    return pd.Series(False, index=group.index)
-                
-                # Seul le coefficient 3.0 (outliers extrêmes) est retenu
-                lower = q1 - 3.0 * iqr
-                upper = q3 + 3.0 * iqr
-                return (group < lower) | (group > upper)
+                if iqr == 0: return pd.Series(False, index=group.index)
+                return (group < (q1 - multiplier * iqr)) | (group > (q3 + multiplier * iqr))
 
-            outlier_mask = temp_df.groupby('PrimaryPropertyType')[col].transform(get_iqr_flags)
-            df.loc[temp_df.index[outlier_mask == True], flag_col] = 1
+            df[f"is_outlier_iqr_{col}"] = df.groupby('PrimaryPropertyType')[col].transform(lambda x: get_iqr_flags(x, 3.0)).astype(int)
+            df[f"is_extreme_5iqr_{col}"] = df.groupby('PrimaryPropertyType')[col].transform(lambda x: get_iqr_flags(x, 5.0)).astype(int)
 
-        # 4. Décisions stratégiques et validation croisée
+        # 4. Logique de décision Avancée
+        # Utilisation de .get() pour éviter les KeyError si une colonne manque
+        mask_outlier_eui = (df.get('is_outlier_iqr_SiteEUI(kBtu/sf)', 0) == 1)
+        mask_outlier_target = (df.get('is_outlier_iqr_TotalGHGEmissions', 0) == 1)
         
-        # Identification des suspects (Intensités hors-normes)
-        mask_suspect_intensity = (df['is_outlier_iqr_SiteEUI(kBtu/sf)'] == 1) | \
-                                 (df.get('is_outlier_iqr_GHGEmissionsIntensity', 0) == 1)
+        # Avocats de la défense
+        mask_justified_size = (df.get('is_outlier_iqr_PropertyGFATotal', 0) == 1)
+        mask_high_performer = (df.get('ENERGYSTARScore', 0) >= 70)
         
-        # Identification des facteurs justificatifs (Surfaces hors-normes)
-        mask_justified_by_size = (df['is_outlier_iqr_PropertyGFATotal'] == 1)
-        
-        # LOGIQUE SCIENTIFIQUE : 
-        # Si (Outlier Intensité) ET NON (Outlier Surface) -> Suppression (Erreur probable)
-        # Sinon -> Conservation (Profil atypique mais cohérent physiquement)
-        mask_drop = mask_suspect_intensity & (~mask_justified_by_size)
-        
-        audit["outliers_intensity_removed"] = int(mask_drop.sum())
-        audit["outliers_intensity_saved_by_gfa"] = int((mask_suspect_intensity & mask_justified_by_size).sum())
-        
-        # Application du filtre
-        df = df[~mask_drop].copy()
+        # Garde-fou 5.0 IQR
+        mask_unjustifiable = (df.get('is_extreme_5iqr_SiteEUI(kBtu/sf)', 0) == 1) | \
+                             (df.get('is_extreme_5iqr_TotalGHGEmissions', 0) == 1)
 
-        # 5. Conservation finale des flux et structures
-        # On s'assure de ne pas avoir supprimé les flux Gaz/Vapeur/Floors
-        audit["massive_surfaces_preserved"] = int((df['is_outlier_iqr_PropertyGFATotal'] == 1).sum())
-        audit["high_rise_preserved"] = int((df.get('is_outlier_iqr_NumberofFloors', 0) == 1).sum())
+        # Application de la sentence
+        mask_drop = (mask_outlier_eui | mask_outlier_target) & (~mask_justified_size) & (~mask_high_performer)
+        mask_drop = mask_drop | mask_unjustifiable
+
+        # Marquage
+        df.loc[mask_unjustifiable, "exclusion_reason"] = "Critical Outlier (> 5.0 IQR)"
+        df.loc[mask_drop & df["exclusion_reason"].isna(), "exclusion_reason"] = "Standard Outlier (No justification)"
+
+        # 5. Application et Audit
+        df_after = df[~mask_drop].copy()
         
-        self.audit(df_before, df, audit)
-        return df
+        audit["total_removed"] = int(mask_drop.sum())
+        audit["critical_errors_removed"] = int(mask_unjustifiable.sum())
+        audit["saved_by_context"] = int(((mask_outlier_eui | mask_outlier_target) & ~mask_unjustifiable & (mask_justified_size | mask_high_performer)).sum())
+
+        # Nettoyage des colonnes temporaires
+        cols_to_drop = [c for c in df_after.columns if "is_outlier_iqr_" in c or "is_extreme_5iqr_" in c or "exclusion_reason" in c]
+        df_final = df_after.drop(columns=cols_to_drop)
+        
+        self.audit(df, df_final, audit)
+        return df_final
