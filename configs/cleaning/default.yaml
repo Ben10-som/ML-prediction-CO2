@@ -1,0 +1,85 @@
+# Ordre d'exécution des étapes de nettoyage
+pipeline:
+  - section_0
+  - section_1
+  - section_2
+  - section_3
+
+# Paramètres spécifiques par section
+section_0:
+  exclude_building_types: [
+    "Multifamily MR (5-9)",
+    "Multifamily HR (10+)",
+    "Multifamily LR (1-4)"]
+
+
+  exclude_primary_property_types: [
+    "Residence Hall",
+    "Senior Care Community",
+    "Low-Rise Multifamily"]
+
+section_1:
+  cols_to_drop: 
+    - "Comments"
+    - "Outlier"
+    - "YearsENERGYSTARCertified"
+    - "ThirdLargestPropertyUseType"
+    - "ThirdLargestPropertyUseTypeGFA"
+  thresholds:
+    low_missing_pct: 0.01      # Seuil pour imputation par groupe (1%)
+    row_max_missing_pct: 0.30  # Seuil suppression lignes (30%)
+  compliance_value: "Compliant"
+
+
+section_2:
+  columns:
+    gfa_total: "PropertyGFATotal"
+    energy_total: "SiteEnergyUse(kBtu)"
+    ghg_emissions: "TotalGHGEmissions"
+    electricity: "Electricity(kBtu)"
+    natural_gas: "NaturalGas(kBtu)"
+    steam: "SteamUse(kBtu)"
+    floors: "NumberofFloors"
+    building_type: "BuildingType"
+    primary_usage: "PrimaryPropertyType"
+    largest_use_gfa: "LargestPropertyUseTypeGFA"
+    n_buildings: "NumberofBuildings"
+  values:
+    campus_label: "Campus"
+  thresholds:
+    min_gfa: 0
+    min_energy: 0
+    ratio_critical: 1.30      # Suppression immédiate au-dessus
+    ratio_high: 1.05          # Seuil pour arbitrage n_buildings
+    ratio_base: 1.00          # Seuil de cohérence standard
+    energy_sum_error_max: 0.10 # 10% d'écart max
+
+section_3:
+  zscore_vars:
+    - 'SiteEnergyUse(kBtu)'
+    - 'SiteEnergyUseWN(kBtu)'
+    - 'TotalGHGEmissions'
+    - 'SiteEUIWN(kBtu/sf)'
+    - 'SourceEUI(kBtu/sf)'
+    - 'SourceEUIWN(kBtu/sf)'
+    - 'Electricity(kWh)'
+    - 'Electricity(kBtu)'
+  
+  iqr_vars:
+    - "NumberofFloors"
+    - 'GHGEmissionsIntensity'
+    - 'SiteEUI(kBtu/sf)'
+    - 'NaturalGas(therms)'
+    - 'NaturalGas(kBtu)'
+    - 'SteamUse(kBtu)'
+    - 'PropertyGFATotal'
+    - 'LargestPropertyUseTypeGFA'
+    - 'SecondLargestPropertyUseTypeGFA'
+    - 'ENERGYSTARScore'
+
+  thresholds:
+    zscore_limit: 3.0
+    zscore_sum_limit: 3
+    iqr_multiplier: 3.0
+  
+  massive_structures_types: ["University", "Hospital", "Large Office"]
