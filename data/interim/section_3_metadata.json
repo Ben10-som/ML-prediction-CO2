@@ -1,15 +1,14 @@
 {
     "step": "section_3",
-    "timestamp": "2026-01-06T22:18:04.781995",
-    "rows_before": 1586,
-    "rows_after": 1525,
-    "rows_removed": 61,
-    "cols_before": 68,
-    "cols_after": 49,
+    "timestamp": "2026-01-06T15:53:44.414449",
+    "rows_before": 1458,
+    "rows_after": 1395,
+    "rows_removed": 63,
+    "cols_before": 64,
+    "cols_after": 43,
     "details": {
-        "rows_removed_zscore": 14,
-        "rows_removed_iqr": 70,
-        "massive_structures_preserved": 13,
-        "total_section3_removed": 61
+        "total_removed": 63,
+        "critical_errors_removed": 41,
+        "saved_by_context": 27
     }
 }

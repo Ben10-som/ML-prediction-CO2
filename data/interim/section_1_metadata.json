@@ -1,12 +1,13 @@
 {
     "step": "section_1",
-    "timestamp": "2026-01-06T22:18:04.909471",
-    "rows_before": 1525,
-    "rows_after": 1415,
-    "rows_removed": 110,
-    "cols_before": 50,
-    "cols_after": 52,
+    "timestamp": "2026-01-06T15:53:43.383810",
+    "rows_before": 1624,
+    "rows_after": 1505,
+    "rows_removed": 119,
+    "cols_before": 47,
+    "cols_after": 42,
     "details": {
-        "total_rows_rejected": 110
+        "rows_non_compliant_removed": 119,
+        "rows_excessive_missing_removed": 0
     }
 }
