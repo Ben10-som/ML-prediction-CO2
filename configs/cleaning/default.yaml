@@ -50,8 +50,6 @@ section_2:
     min_gfa: 0
     min_energy: 0
     ratio_critical: 1.40      # Suppression immédiate au-dessus
-    ratio_high: 1.05          # Seuil pour arbitrage n_buildings
-    ratio_base: 1.00          # Seuil de cohérence standard
     energy_sum_error_max: 0.25 # 25% d'écart max
 
 section_3:
