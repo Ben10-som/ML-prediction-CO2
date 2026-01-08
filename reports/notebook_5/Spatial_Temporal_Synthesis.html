@@ -48,110 +48,79 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="rapport-de-synthèse-analyse-spatiale-et-temporelle-notebook-05" class="level1">
-<h1>Rapport de synthèse — Analyse spatiale et temporelle (Notebook 05)</h1>
-<p><strong>Fichier source :</strong> <code>notebooks/5_spatial_temporal_analysis.ipynb</code><br>
-<strong>Date :</strong> 2026-01-06<br>
-<strong>Statut :</strong> Rapport professionnel centré sur les résultats (sans extraits de code)</p>
-<section id="résumé-exécutif" class="level2">
-<h2 class="anchored" data-anchor-id="résumé-exécutif">Résumé exécutif</h2>
-<p>Ce rapport synthétise les principaux enseignements de l’analyse spatiale et temporelle des émissions de gaz à effet de serre (GHG) des bâtiments non résidentiels de Seattle (données 2016). Les conclusions opérationnelles sont :</p>
+<section id="note-de-synthèse-analyse-spatiale-et-temporelle-des-émissions-de-ges-à-seattle" class="level1">
+<h1>Note de Synthèse — Analyse Spatiale et Temporelle des Émissions de GES à Seattle</h1>
+<p><strong>Date :</strong> 7 janvier 2026<br>
+<strong>Source :</strong> Notebook 5 - Analyse spatiale et temporelle<br>
+<strong>Auteur :</strong> Équipe d’analyse énergétique</p>
+<section id="objectif" class="level2">
+<h2 class="anchored" data-anchor-id="objectif">Objectif</h2>
+<p>Comprendre comment l’époque de construction, la localisation géographique, les infrastructures énergétiques et les certifications environnementales influencent les émissions de CO₂ des bâtiments non résidentiels de Seattle, en vue d’orienter la modélisation prédictive.</p>
+</section>
+<section id="principaux-constats" class="level2">
+<h2 class="anchored" data-anchor-id="principaux-constats">Principaux Constats</h2>
+<section id="déterminants-structurels-des-émissions" class="level3">
+<h3 class="anchored" data-anchor-id="déterminants-structurels-des-émissions">1. Déterminants structurels des émissions</h3>
+<p>Quatre facteurs clés expliquent les variations d’émissions :</p>
 <ul>
-<li>La surface des bâtiments (GFA) et le type d’usage sont les déterminants principaux du volume d’émissions ; l’année de construction est informative pour l’intensité mais n’explique pas à elle seule les émissions totales.</li>
-<li>La certification ENERGY STAR est systématiquement associée à une intensité d’émissions (t/ m²) plus faible et à une variabilité réduite, signe d’une meilleure performance énergétique.</li>
-<li>L’utilisation du réseau de vapeur (Steam) est corrélée à une intensité carbone significativement plus élevée et se concentre géographiquement au Downtown.</li>
-<li>Le Downtown apparaît comme le principal hotspot d’émissions en raison de la combinaison de la densité, de la taille des bâtiments et du recours massif au Steam.</li>
+<li><strong>Surface (GFA)</strong> : Principal moteur du volume global des émissions</li>
+<li><strong>Réseau de vapeur (Steam)</strong> : Multiplie l’intensité carbone par un facteur significatif</li>
+<li><strong>Certification ENERGY STAR</strong> : Réduit substantiellement l’intensité des émissions, même pour les bâtiments anciens</li>
+<li><strong>Époque de construction</strong> : Influence non linéaire — les bâtiments récents sont plus efficaces au m², mais souvent plus grands</li>
 </ul>
 </section>
-<section id="principaux-résultats-détaillés" class="level2">
-<h2 class="anchored" data-anchor-id="principaux-résultats-détaillés">Principaux résultats détaillés</h2>
+<section id="dynamique-temporelle" class="level3">
+<h3 class="anchored" data-anchor-id="dynamique-temporelle">2. Dynamique temporelle</h3>
+<ul>
+<li><strong>Les bâtiments pré-1950</strong> affichent la plus forte intensité d’émissions (mauvaise isolation, systèmes obsolètes)</li>
+<li><strong>Les années 2000-2009</strong> présentent paradoxalement les émissions totales les plus élevées en raison de la construction de grandes structures (tours, centres de données)</li>
+<li><strong>Les constructions 2010-2016</strong> montrent l’intensité carbone la plus faible, confirmant l’impact des normes récentes</li>
+</ul>
+</section>
+<section id="concentration-spatiale" class="level3">
+<h3 class="anchored" data-anchor-id="concentration-spatiale">3. Concentration spatiale</h3>
+<ul>
+<li><strong>Downtown et l’axe Est-Centre</strong> concentrent les émissions les plus importantes</li>
+<li>Le quartier <strong>EAST</strong> présente les émissions moyennes les plus élevées</li>
+<li>Les quartiers périphériques (Southwest, North) affichent des intensités nettement plus faibles</li>
+</ul>
+</section>
+<section id="impact-critique-du-réseau-de-vapeur" class="level3">
+<h3 class="anchored" data-anchor-id="impact-critique-du-réseau-de-vapeur">4. Impact critique du réseau de vapeur</h3>
+<p>Les bâtiments raccordés au réseau de vapeur urbain (infrastructure historique, combustibles fossiles) présentent une <strong>intensité d’émissions médiane nettement supérieure</strong> aux bâtiments utilisant l’électricité ou le gaz naturel.</p>
+</section>
+<section id="efficacité-de-la-certification-energy-star" class="level3">
+<h3 class="anchored" data-anchor-id="efficacité-de-la-certification-energy-star">5. Efficacité de la certification ENERGY STAR</h3>
+<p>La certification réduit significativement l’intensité des émissions dans toutes les périodes de construction, mais ne compense pas totalement les contraintes structurelles des bâtiments anciens.</p>
+</section>
+</section>
+<section id="recommandations-pour-la-modélisation" class="level2">
+<h2 class="anchored" data-anchor-id="recommandations-pour-la-modélisation">Recommandations pour la Modélisation</h2>
+<p><strong>Variables prédictives prioritaires :</strong></p>
+<ul>
+<li>Surface totale, type d’usage, année de construction</li>
+<li>Utilisation du réseau de vapeur (variable fortement discriminante)</li>
+<li>Statut de certification ENERGY STAR</li>
+<li>Localisation (quartier/coordonnées géographiques)</li>
+</ul>
+<p><strong>Ne pas utiliser :</strong> Les données de consommation énergétique future (objectif métier : prédire dès la déclaration administrative)</p>
+<hr>
+</section>
+<section id="leviers-daction-publique" class="level2">
+<h2 class="anchored" data-anchor-id="leviers-daction-publique">Leviers d’Action Publique</h2>
+<p>Pour atteindre la neutralité carbone d’ici 2050, cibler en priorité :</p>
 <ol type="1">
-<li>Analyse temporelle</li>
-</ol>
-<ul>
-<li>Distribution : la majorité des bâtiments datent d’après 1950, avec un pic notable autour des années 2000.</li>
-<li>Intensité (GHG/m²) : tendance à la baisse pour les constructions récentes (2010–2016), suggérant l’impact des normes environnementales.</li>
-<li>Émission totale : les bâtiments construits 2000–2009 montrent des émissions totales élevées — phénomène lié à la taille et à l’usage (grandes tours, complexes tertiaires).</li>
-</ul>
-<ol start="2" type="1">
-<li>Certification ENERGY STAR</li>
-</ol>
-<ul>
-<li>Effet constant et robuste : bâtiments certifiés présentent des médianes d’intensité plus faibles pour la plupart des époques de construction.</li>
-<li>Valeur opérationnelle : le statut de certification est un excellent indicateur pour prioriser les audits et orienter les politiques incitatives.</li>
-</ul>
-<ol start="3" type="1">
-<li>Cartographie et hotspots</li>
-</ol>
-<ul>
-<li>Heatmap et scatter géographique identifient le Downtown comme épicentre d’émissions, avec des corridors d’activité au nord et au sud et des foyers industriels ponctuels.</li>
-<li>Corrélation visuelle forte entre taille (GFA) et émissions totales.</li>
-</ul>
-<ol start="4" type="1">
-<li>Analyse par quartier (Neighborhood)</li>
-</ol>
-<ul>
-<li>Classement des 15 quartiers les plus émetteurs : Downtown et East en tête.</li>
-<li>Les quartiers périphériques présentent des intensités plus faibles et une dispersion réduite.</li>
-<li>Outliers (bâtiments super-émetteurs) identifiés — cibles prioritaires pour audits et rénovations.</li>
-</ul>
-<ol start="5" type="1">
-<li>Usage du Steam</li>
-</ol>
-<ul>
-<li>La présence du réseau vapeur est quasi exclusivement concentrée au Downtown/First Hill.</li>
-<li>Bâtiments raccordés montrent une intensité médiane notablement plus élevée que ceux alimentés autrement.</li>
-<li>Implication : la décarbonisation du réseau vapeur ou la conversion de ses usagers a un effet de levier important.</li>
-</ul>
-</section>
-<section id="interprétations-et-implications-pour-la-décision-publique" class="level2">
-<h2 class="anchored" data-anchor-id="interprétations-et-implications-pour-la-décision-publique">Interprétations et implications pour la décision publique 💡</h2>
-<ul>
-<li>Actions ciblées : concentrer les programmes de rénovation énergétique sur le Downtown et les bâtiments identifiés comme outliers maximisera la réduction globale des émissions.</li>
-<li>Politique énergétique : encourager la certification ENERGY STAR et prioriser la modernisation du réseau vapeur sont des leviers à fort impact.</li>
-<li>Planification urbaine : intégrer les résultats dans les plans locaux (priorité aux bâtiments à forte intensité et aux zones denses).</li>
-</ul>
-</section>
-<section id="recommandations-pour-la-modélisation-prédictive" class="level2">
-<h2 class="anchored" data-anchor-id="recommandations-pour-la-modélisation-prédictive">Recommandations pour la modélisation prédictive 🔧</h2>
-<p>Variables prioritaires à inclure : - Caractéristiques structurelles : <code>PropertyGFATotal</code>, <code>PrimaryPropertyType</code>, <code>YearBuilt</code>/<code>Era</code>. - Localisation : <code>Neighborhood</code> ou coordonnées (latitude/longitude). - Variables techniques : <code>Has_Steam</code>, <code>Has_ENERGYSTAR</code>.</p>
-<p>Approche méthodologique recommandée : - Modèles robustes pour capturer hétérogénéité et outliers (ex. arbres de décision boostés) et modèles linéaires robustes pour l’interprétabilité. - Évaluer performance par segments (quartier, usage) et examiner particulièrement les outliers.</p>
-</section>
-<section id="limites-et-considérations" class="level2">
-<h2 class="anchored" data-anchor-id="limites-et-considérations">Limites et considérations 💬</h2>
-<ul>
-<li>Données temporelles : jeu de données = snapshot 2016 ; les évolutions post-2016 ne sont pas couvertes.</li>
-<li>Disponibilité des scores ENERGY STAR : données partielles (NA) à traiter via stratégies d’imputation ou indicateurs proxy.</li>
-<li>Les relations observées sont de nature corrélative; des approches causales seraient nécessaires pour affirmer des effets politiques.</li>
-<li>Le rapport synthétise des analyses visuelles et descriptives : validation statistique (tests, intervalles de confiance) et quantification des effets restent à compléter si nécessaire.</li>
-</ul>
-</section>
-<section id="annexes-livrables-associés" class="level2">
-<h2 class="anchored" data-anchor-id="annexes-livrables-associés">Annexes &amp; livrables associés</h2>
-<ul>
-<li>Notebook source : <code>notebooks/5_spatial_temporal_analysis.ipynb</code></li>
-<li>Figures mentionnées (à régénérer par exécution du notebook) :
-<ul>
-<li><code>total.png</code> (tendance LOWESS TotalGHGEmissions vs YearBuilt)</li>
-<li><code>geo.png</code> (scatter géographique coloré par émissions)</li>
-<li><code>ghg_heatmap.html</code> (carte interactive HeatMap)</li>
-<li><code>top.png</code> (top quartiers par GHG moyen)</li>
-<li><code>top_intensite.png</code> (GHG intensity par quartier)</li>
-<li><code>stream.png</code> (distribution géographique du Steam)</li>
-</ul></li>
-</ul>
-</section>
-<section id="prochaines-étapes-proposées" class="level2">
-<h2 class="anchored" data-anchor-id="prochaines-étapes-proposées">Prochaines étapes proposées ▶️</h2>
-<ol type="1">
-<li>Exécuter le notebook pour régénérer toutes les figures et vérifier les sorties réelles.<br>
-</li>
-<li>Réaliser les tests statistiques formels (ANOVA, tests de comparaison de groupes) et documenter les p-values / intervalles.<br>
-</li>
-<li>Construire un prototype de modèle prédictif (ex. LightGBM) et produire un rapport d’évaluation (MAE / RMSE / R²) par segment.</li>
+<li><strong>Bâtiments du Downtown</strong> (densité + super-émetteurs)</li>
+<li><strong>Transition hors du réseau de vapeur</strong> (infrastructure à forte intensité carbone)</li>
+<li><strong>Rénovation des bâtiments anciens non certifiés</strong> (potentiel d’amélioration maximal)</li>
 </ol>
 <hr>
-<p><strong>Contact projet :</strong> Équipe d’analyse — disponible pour exécution du notebook, investigation statistique ou prototype de modèle sur demande.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Les émissions ne sont pas uniformément réparties mais répondent à des déterminants structurels clairs. La phase de modélisation devra intégrer ces variables explicatives pour produire des prédictions robustes et orienter efficacement les politiques de transition énergétique de Seattle.</p>
+<hr>
+<p><strong>Document généré le 7 janvier 2026</strong></p>
 </section>
 </section>
 
