@@ -1,5 +1,8 @@
 env/
 **/*.csv
+# Ré-autoriser les CSV dans reports et ses sous-dossiers
+!reports/**/*.csv
+
 **/*.parquet
 **/__pycache__/
 .vscode/

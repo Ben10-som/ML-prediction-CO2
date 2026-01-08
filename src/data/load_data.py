@@ -96,22 +96,20 @@ def save_metadata(df: pd.DataFrame, cfg: DictConfig, file_path: Path) -> None:
 
     # 4. Logique de détection de changement
     last_record = history[-1] if history else None
-    
     data_has_changed = False
     
     if last_record is None:
         new_record["status"] = "created"
         data_has_changed = True
-        logger.info("Création du fichier de suivi des métadonnées.")
     elif last_record.get("file_hash") != current_hash:
         new_record["status"] = "modified"
         data_has_changed = True
-        logger.warning(f" ATTENTION : Les données ont changé depuis le dernier chargement ({last_record['timestamp']}) !")
+        # On ne loggue l'alerte QUE si le fichier n'est pas celui qu'on vient de produire
+        # Pour l'instant, on reste informatif :
+        logger.info(f" Nouvelle version détectée pour {file_path.name} (MàJ de l'historique).")
     else:
-        # Si rien n'a changé, on ne spamme pas le fichier JSON, 
-        # mais on loggue quand même dans la console pour rassurer.
-        logger.info(" Intégrité des données validée (Aucune modification détectée).")
-        return # On arrête ici, pas besoin d'écrire dans le fichier
+        logger.info(f"✔️ {file_path.name} : Identique à la version précédente.")
+        return
 
     #  Sauvegarde si changement
     if data_has_changed:
