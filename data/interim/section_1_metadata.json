@@ -7,6 +7,7 @@
     "cols_before": 50,
     "cols_after": 52,
     "details": {
-        "total_rows_rejected": 110
+        "rows_non_compliant_removed": 119,
+        "rows_excessive_missing_removed": 0
     }
 }

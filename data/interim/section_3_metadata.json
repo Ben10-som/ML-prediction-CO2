@@ -7,9 +7,8 @@
     "cols_before": 68,
     "cols_after": 49,
     "details": {
-        "rows_removed_zscore": 14,
-        "rows_removed_iqr": 70,
-        "massive_structures_preserved": 13,
-        "total_section3_removed": 61
+        "total_removed": 63,
+        "critical_errors_removed": 41,
+        "saved_by_context": 27
     }
 }
