@@ -1,161 +1,181 @@
-# Analyse univariée – Caractérisation individuelle des variables  
-**Projet : Prédiction des émissions de CO₂ (Seattle)**
+# Analyse univariée des données – Émissions de CO₂ (Seattle)
+
+**Projet :** Prédiction des émissions de gaz à effet de serre  
+**Notebook associé :** `02_Analyse_univariee.ipynb`
 
 ---
 
-## 1. Introduction
+## 1. Objectif général du notebook
 
-Ce document présente une synthèse complète du travail réalisé dans le notebook d’analyse univariée.  
-L’objectif est de **caractériser individuellement chaque variable du dataset**, afin de comprendre son comportement statistique, identifier d’éventuelles anomalies et préparer efficacement la phase de modélisation en Machine Learning.
-
-L’analyse univariée constitue une étape fondamentale, car elle permet d’éviter des interprétations erronées lors de l’étude des relations entre variables et de guider les choix méthodologiques ultérieurs.
-
----
-
-## 2. Objectifs de l’analyse univariée
-
-Le notebook d’analyse univariée a poursuivi les objectifs suivants :
-
-- Explorer chaque variable indépendamment des autres
-- Analyser la forme des distributions (symétrie, asymétrie)
-- Identifier la dispersion et la présence de valeurs aberrantes
-- Évaluer la qualité des données (valeurs manquantes, variabilité)
-- Préparer les transformations statistiques nécessaires
-- Effectuer une sélection préliminaire des variables pertinentes
+Ce notebook vise à réaliser une **analyse univariée approfondie** du dataset afin de :
+- comprendre le comportement individuel des variables,
+- détecter les anomalies statistiques,
+- préparer les transformations nécessaires pour le Machine Learning.
 
 ---
 
-## 3. Vue globale du dataset
+## 2. Vue globale du dataset
 
-### 3.1 Typologie des variables
+### Typologie des variables
 
-Le dataset brut est composé majoritairement de **variables numériques**, complétées par des variables qualitatives décrivant les typologies de bâtiments, leurs usages et leur localisation.
+| Type de variable | Nombre |
+|------------------|--------|
+| Numériques (float / int) | Majoritaires |
+| Qualitatives (object / category) | Minoritaires |
+| Booléennes | Très rares |
 
-Cette structure est favorable à la modélisation, tout en nécessitant un travail de préparation spécifique pour les variables catégorielles (nettoyage, regroupement, encodage).
-
----
-
-## 4. Analyse de la variable cible : `TotalGHGEmissions`
-
-### 4.1 Caractéristiques statistiques
-
-L’analyse de la variable cible met en évidence :
-
-- Une **moyenne nettement supérieure à la médiane**
-- Une **dispersion très élevée**
-- Une **asymétrie extrême à droite**
-- Une **présence marquée d’outliers**
-
-Ces caractéristiques indiquent que la majorité des bâtiments sont faiblement émetteurs, tandis qu’un nombre très limité concentre des émissions extrêmement élevées.
-
-### 4.2 Interprétation
-
-La médiane apparaît comme un indicateur plus représentatif que la moyenne pour décrire le niveau typique des émissions.  
-La distribution est clairement non normale et dominée par des valeurs extrêmes, ce qui constitue une information essentielle pour la suite de l’analyse.
+Le dataset est dominé par des variables quantitatives, ce qui justifie une analyse statistique détaillée.
 
 ---
 
-## 5. Analyse des variables de consommation énergétique
+## 3. Analyse de la variable cible – `TotalGHGEmissions`
 
-Les variables liées à la consommation énergétique (électricité, gaz, vapeur, énergie totale, intensités énergétiques) présentent des comportements similaires :
+### Statistiques descriptives
 
-- Distributions fortement asymétriques à droite
-- Forte dispersion entre observations
-- Présence fréquente de valeurs extrêmes
-- Corrélation très élevée entre les versions normalisées météo (WN) et non normalisées
+| Statistique | Valeur |
+|------------|--------|
+| Moyenne | 138.76 |
+| Médiane | 46.01 |
+| Minimum | 0.40 |
+| Maximum | 12 307.16 |
+| Écart-type | 540.27 |
+| Skewness | 16.77 |
+| Kurtosis | 329.03 |
 
-Ces résultats montrent que les variables WN sont largement redondantes avec leurs équivalents non normalisés, ce qui permet d’envisager une simplification du jeu de variables.
+### Quartiles
 
----
+| Quartile | Valeur |
+|---------|--------|
+| Q1 (25 %) | 19.54 |
+| Q2 (50 %) | 46.01 |
+| Q3 (75 %) | 120.88 |
+| IQR | 101.35 |
 
-## 6. Analyse des caractéristiques physiques des bâtiments
-
-Les variables décrivant les surfaces et la structure des bâtiments (surfaces totales, surfaces de parking, nombre d’étages, nombre de bâtiments) mettent en évidence :
-
-- Une **forte asymétrie à droite** des surfaces
-- La présence de quelques bâtiments de très grande taille
-- Une majorité de bâtiments de petite à moyenne dimension
-- Un nombre d’étages généralement compris entre 1 et 5
-
-Ces variables jouent un rôle central dans l’explication des niveaux de consommation énergétique et d’émissions.
-
----
-
-## 7. Dimension temporelle : `YearBuilt`
-
-L’analyse de l’année de construction révèle :
-
-- Une répartition hétérogène des bâtiments dans le temps
-- Une forte proportion de bâtiments anciens
-- Une influence indirecte de l’âge sur la performance énergétique
-
-L’âge des bâtiments ne suffit pas à expliquer seul les émissions, mais il constitue un facteur explicatif complémentaire pertinent.
+### Interprétation
+La distribution est **fortement asymétrique à droite**, dominée par quelques bâtiments extrêmement émetteurs.  
+Une **transformation logarithmique** est indispensable avant modélisation.
 
 ---
 
-## 8. Performance énergétique : `ENERGYSTARScore`
+## 4. Variables de consommation énergétique
 
-La variable `ENERGYSTARScore` se caractérise par :
+### Variables analysées
+- Électricité, gaz naturel, vapeur
+- Consommation totale du site
+- Intensités énergétiques (EUI)
 
-- Une échelle bornée entre 0 et 100
-- Une proportion importante de valeurs manquantes (bâtiments non certifiés)
-- Des profils énergétiques plus performants pour les bâtiments certifiés
+### Synthèse des comportements observés
 
-Cette variable fournit une information synthétique sur l’efficacité énergétique, mais son utilisation doit tenir compte des valeurs manquantes.
+| Caractéristique | Observation |
+|----------------|-------------|
+| Forme des distributions | Très asymétriques |
+| Dispersion | Très élevée |
+| Valeurs extrêmes | Nombreuses |
+| Variables WN vs non-WN | Très fortement corrélées |
 
----
-
-## 9. Analyse des variables qualitatives
-
-Les variables qualitatives analysées incluent notamment :
-
-- Le type de bâtiment (`BuildingType`)
-- L’usage principal (`PrimaryPropertyType`)
-- Le quartier (`Neighborhood`)
-- Le type d’usage dominant (`LargestPropertyUseType`)
-
-### 9.1 Patterns observés
-
-L’analyse univariée met en évidence des **patterns clairs** :
-
-- Les émissions de GES varient significativement selon le type et l’usage des bâtiments
-- Certaines catégories présentent des niveaux d’émissions typiques plus élevés
-- Une forte hétérogénéité existe au sein de chaque catégorie
-- Les distributions restent asymétriques, avec quelques bâtiments très fortement émetteurs
-
-Ces résultats confirment que les variables qualitatives jouent un rôle structurant dans l’explication des émissions.
+Les variables normalisées météo (WN) apportent peu d’information supplémentaire.
 
 ---
 
-## 10. Justification de l’approche univariée
+## 5. Caractéristiques physiques des bâtiments
 
-L’analyse univariée est indispensable car elle permet :
+### Variables étudiées
+- `PropertyGFATotal`
+- `PropertyGFABuilding(s)`
+- `PropertyGFAParking`
+- `NumberofFloors`
+- `NumberofBuildings`
 
-- De comprendre le comportement individuel des variables
-- De détecter des anomalies invisibles en analyse bivariée
-- De choisir les transformations statistiques adaptées
-- D’éliminer précocement certaines variables non informatives
-- De faciliter la communication des résultats auprès de publics non techniques
+### Observations clés
 
----
+| Variable | Pattern observé |
+|--------|----------------|
+| Surfaces | Skewed à droite |
+| Taille typique | Petite à moyenne |
+| Très grands bâtiments | Peu nombreux mais dominants |
+| Nombre d’étages | Majorité entre 1 et 5 |
 
-## 11. Recommandations de transformation
-
-À l’issue de l’analyse univariée, les recommandations suivantes ont été formulées :
-
-| Situation observée | Recommandation |
-|------------------|----------------|
-| Asymétrie forte (skewness > 2) | Transformation logarithmique |
-| Asymétrie modérée (skewness 1–2) | Transformation racine carrée |
-| Variance quasi nulle | Suppression de la variable |
-| Plus de 70 % de valeurs manquantes | Suppression ou traitement spécifique |
-| Variables catégorielles | Encodage adapté (One-Hot, Label, Target) |
+La surface et la hauteur expliquent en partie les écarts énergétiques.
 
 ---
 
-## 12. Conclusion
+## 6. Dimension temporelle – `YearBuilt`
 
-Ce travail d’analyse univariée a permis de comprendre en profondeur la structure du dataset, de mettre en évidence des patterns statistiques et métier dans les émissions de CO₂, et de préparer de manière rigoureuse la phase de modélisation.  
-Il constitue une **fondation méthodologique essentielle** pour la construction d’un modèle de prédiction fiable, robuste et interprétable.
+| Élément | Observation |
+|-------|-------------|
+| Étendue temporelle | Large |
+| Bâtiments anciens | Proportion élevée |
+| Homogénéité | Faible |
+
+L’âge influence la performance énergétique, mais n’explique pas seul les émissions.
 
 ---
+
+## 7. Performance énergétique – `ENERGYSTARScore`
+
+### Statistiques générales
+
+| Élément | Observation |
+|-------|-------------|
+| Domaine | [0 ; 100] |
+| Dispersion | Modérée |
+| Valeurs manquantes | Nombreuses |
+| Normalité | Non vérifiée |
+
+Le score est informatif mais nécessite une **gestion spécifique des NaN**.
+
+---
+
+## 8. Analyse des variables qualitatives
+
+### Variables étudiées
+- `BuildingType`
+- `PrimaryPropertyType`
+- `Neighborhood`
+- `LargestPropertyUseType`
+- `ListOfAllPropertyUseTypes`
+
+### Patterns observés
+
+| Variable | Pattern principal |
+|--------|------------------|
+| BuildingType | Émissions très variables selon le type |
+| PrimaryPropertyType | Domination du tertiaire |
+| Neighborhood | Forte concentration géographique |
+| PropertyUseTypes | Bâtiments souvent multi-usages |
+
+Ces variables sont **fortement structurantes** pour la modélisation.
+
+---
+
+## 9. Recommandations issues de l’analyse univariée
+
+| Problème détecté | Action recommandée |
+|-----------------|------------------|
+| Asymétrie forte | Log-transform |
+| Valeurs extrêmes | Transformation ou robust scaling |
+| Variables redondantes | Sélection |
+| Modalités nombreuses | Regroupement |
+| Valeurs manquantes | Imputation ou suppression |
+
+---
+
+## 10. Rôle du notebook dans le projet
+
+Ce notebook constitue :
+- une **base méthodologique**,
+- un **outil de diagnostic des données**,
+- un **support commun pour l’équipe**.
+
+Il doit être consulté **avant toute analyse bivariée ou modélisation**.
+
+---
+
+## 11. Conclusion générale
+
+L’analyse univariée a permis :
+- une compréhension fine des distributions,
+- l’identification de patterns structurels,
+- une préparation rigoureuse de la phase de Machine Learning.
+
+Elle constitue une **fondation essentielle** pour la suite du projet.
