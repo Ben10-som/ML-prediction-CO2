@@ -1,0 +1,8 @@
+# Paramètres pour le script de feature engineering
+year_ref: 2016
+eps: 1e-9
+drop_leaky_cols: true
+keep_raw_energy_cols: true
+filename: "model_input.csv"
+# On utilisera le chemin data.processed.dir
+output_dir: ${data.processed.dir}
