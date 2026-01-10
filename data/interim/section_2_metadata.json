@@ -9,9 +9,8 @@
     "details": {
         "rows_removed_invalid_gfa": 0,
         "rows_removed_invalid_energy_vals": 1,
-        "total_floors_imputed": 12,
-        "campus_floors_imputed": 2,
-        "rows_removed_gfa_ratio_incoherent": 31,
-        "rows_removed_energy_sum_incoherent": 16
+        "potential_floors_to_impute": 12,
+        "rows_removed_gfa_ratio_incoherent": 28,
+        "rows_removed_energy_sum_incoherent": 8
     }
 }
