@@ -1,11 +1,11 @@
 {
     "step": "section_3",
-    "timestamp": "2026-01-08T22:59:25.122739",
-    "rows_before": 1588,
-    "rows_after": 1527,
-    "rows_removed": 61,
-    "cols_before": 68,
-    "cols_after": 49,
+    "timestamp": "2026-01-06T22:34:33.178331",
+    "rows_before": 1458,
+    "rows_after": 1395,
+    "rows_removed": 63,
+    "cols_before": 64,
+    "cols_after": 43,
     "details": {
         "total_removed": 63,
         "critical_errors_removed": 41,
