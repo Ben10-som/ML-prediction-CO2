@@ -65,6 +65,7 @@ def feature_engineering_seattle(df: pd.DataFrame,
         "Comments",
         "YearsENERGYSTARCertified",
         "ListOfAllPropertyUseTypes",
+        "DataYear",
     ]
 
     # fuite (leakage) si target = TotalGHGEmissions
