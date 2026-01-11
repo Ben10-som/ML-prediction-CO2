@@ -1,9 +1,9 @@
 # Ordre d'exécution des étapes de nettoyage
 pipeline:
   - section_0
-  - section_1
   - section_2
   - section_3
+  - section_1
 
 # Paramètres spécifiques par section
 section_0:
@@ -76,8 +76,8 @@ section_3:
     - 'ENERGYSTARScore'
 
   thresholds:
-    zscore_limit: 3.0
-    zscore_sum_limit: 3
-    iqr_multiplier: 3.0
+    zscore_limit: 4.0
+    zscore_sum_limit: 4
+    iqr_multiplier: 4.0
   
   massive_structures_types: ["University", "Hospital", "Large Office"]
