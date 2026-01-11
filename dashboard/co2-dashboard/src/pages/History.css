@@ -1,0 +1,21 @@
+.history-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.history-page th,
+.history-page td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.history-page th {
+    background-color: #1e90ff;
+    color: white;
+}
+
+.history-page tr:nth-child(even) {
+    background-color: #f2f8ff;
+}
