@@ -240,6 +240,15 @@ def feature_engineering_seattle(
     # Nettoyage des résidus de nettoyage (piloté par config)
     df_fe = df_fe.drop(columns=[c for c in fe_cfg.drop_list if c in df_fe.columns], errors="ignore")
 
+    # Suppression par motifs (anti-leakage)
+    drop_patterns = list(fe_cfg.drop_patterns)
+    if drop_patterns:
+        cols_to_remove = [
+            c for c in df_fe.columns
+            if any(pat in c for pat in drop_patterns)
+        ]
+        df_fe = df_fe.drop(columns=cols_to_remove, errors="ignore")
+
     # Harmonisation des flags pour réduire la mémoire
     for col in fe_cfg.flag_cols:
         if col in df_fe.columns:

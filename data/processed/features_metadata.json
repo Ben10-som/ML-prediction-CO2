@@ -1,0 +1,10 @@
+{
+    "timestamp": "2026-01-11T21:22:09.093947",
+    "rows": 1395,
+    "cols": 21,
+    "file": "D:\\Machine Learning 1\\Projet\\Project folder\\ML-prediction-CO2\\data\\processed\\features.csv",
+    "metadata": {
+        "source": "hydra_pipeline",
+        "run_type": "script"
+    }
+}
