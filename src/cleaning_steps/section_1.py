@@ -71,6 +71,18 @@ class Section1(BaseCleaner):
         # Flag de présence EnergyStar (utile pour les modèles prédictifs)
         if 'ENERGYSTARScore' in df_working.columns:
             df_working['Has_EnergyStarScore'] = df_working['ENERGYSTARScore'].notna().astype(int)
+        
+
+        # --- 2.5 REPARATION DES CATEGORIES CRITIQUES ---
+        # Cela ne concerne que 4 batiments,comme meilleur strategie on examinera ces 4 elements
+        # Si le type d'usage principal est vide, on utilise le type de propriété primaire
+        if 'LargestPropertyUseType' in df_working.columns:
+            mask_missing_type = df_working['LargestPropertyUseType'].isnull()
+            df_working.loc[mask_missing_type, 'LargestPropertyUseType'] = df_working.loc[mask_missing_type, 'PrimaryPropertyType']
+            
+            # Si c'est toujours vide (cas rare), on met "Unknown" pour permettre le groupby
+            df_working['LargestPropertyUseType'] = df_working['LargestPropertyUseType'].fillna("Unknown")
+
 
         # --- 3. IMPUTATIONS EN CASCADE (Usage -> Global) ---
         # Calcul du taux de manquants avant imputation pour l'audit
