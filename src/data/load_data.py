@@ -148,3 +148,32 @@ def load_data_raw(cfg: DictConfig) -> pd.DataFrame:
     except Exception as e:
         logger.error(f"Erreur lors de la lecture du CSV : {e}")
         raise
+
+
+def load_data_cleaned(cfg: DictConfig) -> pd.DataFrame:
+    """Chargement robuste des donnees nettoyees depuis data/interim."""
+    interim_dir = _resolve_path(cfg.data.interim.dir)
+    interim_file = cfg.data.interim.file
+    interim_path = interim_dir / interim_file
+
+    if not interim_path.exists():
+        logger.error(f"Fichier nettoye introuvable : {interim_path}")
+        raise FileNotFoundError(interim_path)
+
+    load_params = {
+        "encoding": cfg.eda.loading.encoding,
+        "low_memory": cfg.eda.loading.low_memory,
+        "na_values": cfg.eda.loading.na_values,
+    }
+
+    try:
+        df = pd.read_csv(interim_path, **load_params)
+        logger.info(f"DataFrame charge : {df.shape[0]} lignes, {df.shape[1]} colonnes")
+
+        # Audit automatique sur le fichier nettoye
+        save_metadata(df, cfg, interim_path)
+
+        return df
+    except Exception as e:
+        logger.error(f"Erreur lors de la lecture du CSV nettoye : {e}")
+        raise

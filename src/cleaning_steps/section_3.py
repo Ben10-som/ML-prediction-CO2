@@ -1,78 +1,146 @@
 import pandas as pd
 import numpy as np
+from scipy import stats
 from .base_processor import BaseCleaner
-import warnings
-
-warnings.filterwarnings("ignore", category=RuntimeWarning, module="numpy")
 
 class Section3(BaseCleaner):
     def run(self, df):
         df = df.copy()
-        df_before = df.copy()
         s3_cfg = self.cfg.cleaning.section_3
+        t = s3_cfg.thresholds
         audit = {}
+
         df["exclusion_reason"] = None
 
-        # 1. Restauration de la vérité physique
-        mask_wn_zero = (df['SiteEnergyUse(kBtu)'] > 0) & (df['SiteEnergyUseWN(kBtu)'] == 0)
-        df.loc[mask_wn_zero, 'SiteEnergyUseWN(kBtu)'] = df.loc[mask_wn_zero, 'SiteEnergyUse(kBtu)']
+        # ------------------------------------------------------------------
+        # 1. Préparation des variables (WN déjà synchronisées en S2)
+        # ------------------------------------------------------------------
+        surface_col = (
+            'PropertyGFABuilding(s)'
+            if 'PropertyGFABuilding(s)' in df.columns
+            else 'PropertyGFATotal'
+        )
 
-        # 2. Recalcul des intensités (EUI)
-        surface_col = 'PropertyGFABuilding(s)' if 'PropertyGFABuilding(s)' in df.columns else 'PropertyGFATotal'
-        if 'SiteEnergyUseWN(kBtu)' in df.columns:
+        if 'SiteEnergyUseWN(kBtu)' in df.columns and surface_col in df.columns:
             df['SiteEUIWN(kBtu/sf)'] = df['SiteEnergyUseWN(kBtu)'] / df[surface_col]
-            df.replace([np.inf, -np.inf], np.nan, inplace=True)
-            df['SiteEUIWN(kBtu/sf)'] = df['SiteEUIWN(kBtu/sf)'].fillna(0)
 
-        # 3. Détection IQR (Calcul des drapeaux)
-        # On s'assure que TotalGHGEmissions est traité même s'il est oublié dans le YAML
-        vars_to_process = list(set(s3_cfg.iqr_vars + ['TotalGHGEmissions']))
-        
-        for col in vars_to_process:
-            if col not in df.columns: continue 
-            
-            def get_iqr_flags(group, multiplier=3.0):
-                clean_group = group.dropna()
-                if len(clean_group) < 2: return pd.Series(False, index=group.index)
-                q1, q3 = clean_group.quantile(0.25), clean_group.quantile(0.75)
+        # ------------------------------------------------------------------
+        # 2. DÉTECTION PAR Z-SCORE (variables normalisées après log)
+        # ------------------------------------------------------------------
+        zscore_cols = [c for c in s3_cfg.zscore_vars if c in df.columns]
+
+        zscore_stats = {}
+
+        for col in zscore_cols:
+            def zscore_log_group(x):
+                x_valid = x.dropna()
+                if x_valid.count() <= 5:
+                    return pd.Series(0, index=x.index)
+
+                # Sécurité : on exclut valeurs négatives avant log
+                x_pos = x.clip(lower=0)
+                z = stats.zscore(np.log1p(x_pos), nan_policy='omit')
+                return z
+
+            df[f'zscore_{col}'] = (
+                df.groupby('PrimaryPropertyType')[col]
+                  .transform(zscore_log_group)
+            )
+
+            # Audit par variable
+            z_abs = df[f'zscore_{col}'].abs()
+            zscore_stats[col] = {
+                "n_obs": int(df[col].notna().sum()),
+                "n_extreme_z": int((z_abs > t.zscore_limit).sum()),
+                "max_abs_z": float(z_abs.max(skipna=True))
+            }
+
+        # ------------------------------------------------------------------
+        # 3. DÉTECTION PAR IQR (structure / intensité)
+        # ------------------------------------------------------------------
+        iqr_cols = [c for c in s3_cfg.iqr_vars if c in df.columns]
+        iqr_stats = {}
+
+        for col in iqr_cols:
+            def get_iqr_outliers(x):
+                if x.count() <= 5:
+                    return pd.Series(False, index=x.index)
+                q1, q3 = x.quantile(0.25), x.quantile(0.75)
                 iqr = q3 - q1
-                if iqr == 0: return pd.Series(False, index=group.index)
-                return (group < (q1 - multiplier * iqr)) | (group > (q3 + multiplier * iqr))
+                return (x < (q1 - t.iqr_multiplier * iqr)) | (x > (q3 + t.iqr_multiplier * iqr))
 
-            df[f"is_outlier_iqr_{col}"] = df.groupby('PrimaryPropertyType')[col].transform(lambda x: get_iqr_flags(x, 3.0)).astype(int)
-            df[f"is_extreme_5iqr_{col}"] = df.groupby('PrimaryPropertyType')[col].transform(lambda x: get_iqr_flags(x, 5.0)).astype(int)
+            mask_out = (
+                df.groupby('PrimaryPropertyType')[col]
+                  .transform(get_iqr_outliers)
+            )
 
-        # 4. Logique de décision Avancée
-        # Utilisation de .get() pour éviter les KeyError si une colonne manque
-        mask_outlier_eui = (df.get('is_outlier_iqr_SiteEUI(kBtu/sf)', 0) == 1)
-        mask_outlier_target = (df.get('is_outlier_iqr_TotalGHGEmissions', 0) == 1)
-        
-        # Avocats de la défense
-        mask_justified_size = (df.get('is_outlier_iqr_PropertyGFATotal', 0) == 1)
-        mask_high_performer = (df.get('ENERGYSTARScore', 0) >= 70)
-        
-        # Garde-fou 5.0 IQR
-        mask_unjustifiable = (df.get('is_extreme_5iqr_SiteEUI(kBtu/sf)', 0) == 1) | \
-                             (df.get('is_extreme_5iqr_TotalGHGEmissions', 0) == 1)
+            df[f'is_iqr_outlier_{col}'] = mask_out.astype(int)
 
-        # Application de la sentence
-        mask_drop = (mask_outlier_eui | mask_outlier_target) & (~mask_justified_size) & (~mask_high_performer)
-        mask_drop = mask_drop | mask_unjustifiable
+            iqr_stats[col] = {
+                "n_obs": int(df[col].notna().sum()),
+                "n_iqr_outliers": int(mask_out.sum())
+            }
 
-        # Marquage
-        df.loc[mask_unjustifiable, "exclusion_reason"] = "Critical Outlier (> 5.0 IQR)"
-        df.loc[mask_drop & df["exclusion_reason"].isna(), "exclusion_reason"] = "Standard Outlier (No justification)"
+        # ------------------------------------------------------------------
+        # 4. LOGIQUE D’EXCLUSION
+        # ------------------------------------------------------------------
+        zscore_flag_cols = [f'zscore_{c}' for c in zscore_cols]
+        df['extreme_zscore_count'] = (
+            df[zscore_flag_cols].abs() > t.zscore_limit
+        ).sum(axis=1)
 
-        # 5. Application et Audit
+        mask_zscore_limit = df['extreme_zscore_count'] >= t.zscore_sum_limit
+
+        mask_iqr_critical = (
+            (df.get('is_iqr_outlier_SiteEUI(kBtu/sf)', 0) == 1) |
+            (df.get('is_iqr_outlier_PropertyGFATotal', 0) == 1)
+        )
+
+        mask_massive = df['PrimaryPropertyType'].isin(
+            s3_cfg.massive_structures_types
+        )
+
+        mask_drop = (mask_zscore_limit | mask_iqr_critical) & (~mask_massive)
+
+        # Raisons d’exclusion
+        df.loc[mask_zscore_limit, "exclusion_reason"] = (
+            f"ZScoreSum≥{t.zscore_sum_limit}"
+        )
+        df.loc[
+            mask_iqr_critical & df["exclusion_reason"].isna(),
+            "exclusion_reason"
+        ] = "Critical IQR Outlier"
+
+        # ------------------------------------------------------------------
+        # 5. NETTOYAGE FINAL
+        # ------------------------------------------------------------------
         df_after = df[~mask_drop].copy()
-        
-        audit["total_removed"] = int(mask_drop.sum())
-        audit["critical_errors_removed"] = int(mask_unjustifiable.sum())
-        audit["saved_by_context"] = int(((mask_outlier_eui | mask_outlier_target) & ~mask_unjustifiable & (mask_justified_size | mask_high_performer)).sum())
 
-        # Nettoyage des colonnes temporaires
-        cols_to_drop = [c for c in df_after.columns if "is_outlier_iqr_" in c or "is_extreme_5iqr_" in c or "exclusion_reason" in c]
-        df_final = df_after.drop(columns=cols_to_drop)
-        
+        cols_to_drop = [
+            c for c in df.columns
+            if (c.startswith('zscore_') or c.startswith('is_iqr_'))
+            and c != 'extreme_zscore_count'
+        ]
+
+        df_final = df_after.drop(
+            columns=cols_to_drop + ["exclusion_reason"],
+            errors='ignore'
+        )
+
+        # ------------------------------------------------------------------
+        # 6. AUDIT ENRICHI
+        # ------------------------------------------------------------------
+        audit.update({
+            "zscore": zscore_stats,
+            "iqr": iqr_stats,
+            "rows_flagged_zscore_sum": int(mask_zscore_limit.sum()),
+            "rows_flagged_iqr_critical": int(mask_iqr_critical.sum()),
+            "massive_structures_preserved": int(
+                (mask_massive & (mask_zscore_limit | mask_iqr_critical)).sum()
+            ),
+            "total_section3_removed": int(mask_drop.sum()),
+            "share_removed": float(mask_drop.mean())
+        })
+
         self.audit(df, df_final, audit)
         return df_final

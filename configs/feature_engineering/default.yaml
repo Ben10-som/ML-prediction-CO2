@@ -1,0 +1,116 @@
+params:
+  year_ref: 2016
+  eps: 1.0e-9
+
+selection:
+  keep_raw_energy: false
+  final_features_only: true
+  drop_leaky: true
+
+output:
+  dir: "data/processed"
+  file: "feature_engineered.csv"
+
+metadata: {}
+
+drop_always:
+  - "OSEBuildingID"
+  - "PropertyName"
+  - "TaxParcelIdentificationNumber"
+  - "Address"
+  - "City"
+  - "State"
+  - "Comments"
+  - "YearsENERGYSTARCertified"
+  - "ListOfAllPropertyUseTypes"
+  - "DataYear"
+
+drop_leaky:
+  - "GHGEmissionsIntensity"
+
+drop_unit_duplicates:
+  - "Electricity(kWh)"
+  - "NaturalGas(therms)"
+
+raw_energy_cols:
+  - "SiteEnergyUse(kBtu)"
+  - "SiteEnergyUseWN(kBtu)"
+  - "Electricity(kBtu)"
+  - "NaturalGas(kBtu)"
+  - "SteamUse(kBtu)"
+  - "SiteEUI(kBtu/sf)"
+  - "SiteEUIWN(kBtu/sf)"
+
+drop_list:
+  - "extreme_zscore_count"
+  - "exclusion_reason"
+  - "ComplianceStatus"
+  - "DefaultData"
+
+flag_cols:
+  - "Has_Parking"
+  - "Has_ENERGYSTAR"
+  - "Has_Gas"
+  - "Has_Steam"
+  - "Is_Downtown"
+  - "IsMixedUse"
+  - "Has_EnergyStarScore"
+
+final_features:
+  - "TotalGHGEmissions"
+  - "PropertyGFATotal"
+  - "PropertyGFABuilding(s)"
+  - "PropertyGFAParking"
+  - "NumberofFloors"
+  - "NumberofBuildings"
+  - "YearBuilt"
+  - "Age"
+  - "Era"
+  - "ENERGYSTARScore"
+  - "PrimaryPropertyType"
+  - "BuildingType"
+  - "Neighborhood"
+  - "ZipCode"
+  - "CouncilDistrictCode"
+  - "Latitude"
+  - "Longitude"
+  - "Is_Downtown"
+  - "distance_to_center_proxy"
+  - "log_GFA"
+  - "surface_per_building"
+  - "surface_per_floor"
+  - "Has_Parking"
+  - "Parking_share"
+  - "Has_ENERGYSTAR"
+  - "Has_Gas"
+  - "Has_Steam"
+  - "TotalEnergy_kBtu_proxy"
+  - "Fossil_kBtu"
+  - "Fossil_Ratio"
+  - "Electrification_Rate"
+  - "Energy_Intensity_kBtu_per_sqft"
+  - "Fossil_Intensity_kBtu_per_sqft"
+  - "Electricity_Intensity_kBtu_per_sqft"
+  - "Gas_Intensity_kBtu_per_sqft"
+  - "Steam_Intensity_kBtu_per_sqft"
+  - "Gas_to_Electricity_Ratio"
+  - "log_Gas_to_Electricity_Ratio"
+  - "log_TotalEnergy"
+  - "log_Electricity_kBtu"
+  - "log_Gas_kBtu"
+  - "log_Steam_kBtu"
+  - "Size_Intensity"
+  - "Age_ENERGYSTAR"
+  - "SiteEnergyUse(kBtu)"
+  - "SiteEnergyUseWN(kBtu)"
+  - "Electricity(kBtu)"
+  - "NaturalGas(kBtu)"
+  - "SteamUse(kBtu)"
+  - "SiteEUI(kBtu/sf)"
+  - "SiteEUIWN(kBtu/sf)"
+drop_leaky_cols: true
+keep_raw_energy_cols: true
+filename: "model_input.csv"
+# On utilisera le chemin data.processed.dir
+output_dir: ${data.processed.dir}
+

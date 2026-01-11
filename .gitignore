@@ -7,6 +7,6 @@ env/
 **/__pycache__/
 .vscode/
 test/tmp/
-
+node_modules
  # Log d'execution et résultats de Hydra. permet de tracer chaque run Hydra et garentir la reproductibilité.
 outputs/**

@@ -1,13 +1,29 @@
 {
     "step": "section_1",
-    "timestamp": "2026-01-10T19:40:39.666350",
-    "rows_before": 1624,
-    "rows_after": 1505,
-    "rows_removed": 119,
-    "cols_before": 47,
-    "cols_after": 42,
+    "timestamp": "2026-01-11T16:53:12.242487",
+    "rows_before": 1529,
+    "rows_after": 1421,
+    "rows_removed": 108,
+    "cols_before": 50,
+    "cols_after": 44,
     "details": {
-        "rows_non_compliant_removed": 119,
-        "rows_excessive_missing_removed": 0
+        "initial_count": 1529,
+        "rejections": {
+            "pre_marked_outliers": 14,
+            "non_compliant": 108,
+            "excessive_missing": 0
+        },
+        "imputation_enabled": false,
+        "imputed_columns": {},
+        "dropped_columns": [
+            "exclusion_reason",
+            "Comments",
+            "Outlier",
+            "YearsENERGYSTARCertified",
+            "ThirdLargestPropertyUseType",
+            "ThirdLargestPropertyUseTypeGFA",
+            "SecondLargestPropertyUseType",
+            "SecondLargestPropertyUseTypeGFA"
+        ]
     }
 }

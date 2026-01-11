@@ -48,19 +48,19 @@ def run_cleaning_pipeline(df: pd.DataFrame, cfg: DictConfig):
 
 def export_and_audit_clean_data(df: pd.DataFrame, cfg: DictConfig):
     """
-    Sauvegarde le fichier nettoyé et met à jour l'empreinte MD5 
-    dans le JSON partagé pour l'équipe.
+    Sauvegarde le fichier nettoyé dans INTERIM et met à jour l'empreinte MD5.
     """
-    # 1. Résolution du chemin de sortie (via ta config)
-    processed_dir = Path(cfg.data.processed.dir)
-    processed_dir.mkdir(parents=True, exist_ok=True)
-    file_path = processed_dir / cfg.data.processed.file
+    # 1. Résolution du chemin vers INTERIM via PROJECT_ROOT
+    # On utilise cfg.data.interim au lieu de processed
+    target_dir = (PROJECT_ROOT / cfg.data.interim.dir).resolve()
+    target_dir.mkdir(parents=True, exist_ok=True)
+    
+    file_path = target_dir / cfg.data.interim.file
 
     # 2. Sauvegarde physique
     df.to_csv(file_path, index=False)
-    logger.info(f"💾 Fichier nettoyé sauvegardé sous : {file_path}")
+    logger.info(f"💾 Fichier nettoyé sauvegardé dans INTERIM sous : {file_path}")
 
     # 3. Signature MD5
-    # Cette fonction va comparer le hash actuel avec celui du JSON
-    # et logger un WARNING si un collègue a une version différente.
+    # On passe le file_path correct pour que le hash soit calculé sur le bon fichier
     save_metadata(df, cfg, file_path)
