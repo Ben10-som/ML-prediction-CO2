@@ -89,14 +89,12 @@ class Section2(BaseCleaner):
         audit_details = {
             "rows_removed_invalid_gfa": int(mask_gfa_invalid.sum()),
             "rows_removed_invalid_energy_vals": int(mask_energy_invalid.sum()),
-            "total_floors_imputed": int(mask_impute_floors.sum()),
-            # On compte les lignes imputées qui étaient aussi des Campus
-            "campus_floors_imputed": int((mask_impute_floors & (df['IsAggregatedCampus'] == 1)).sum()),
+            "potential_floors_to_impute": int(mask_bad_floors.sum()),
             "rows_removed_gfa_ratio_incoherent": int(mask_gfa_ratio_invalid.sum()),
             "rows_removed_energy_sum_incoherent": int(mask_energy_sum_invalid.sum())
         }
 
-        # On envoie 'df' à l'audit pour que le CSV Removed contienne 'exclusion_reason'
         self.audit(df, df_after, audit_details)
         
         return df_after
+        

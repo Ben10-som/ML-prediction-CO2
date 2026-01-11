@@ -1,14 +1,100 @@
 {
     "step": "section_3",
-    "timestamp": "2026-01-06T22:34:33.178331",
-    "rows_before": 1458,
-    "rows_after": 1395,
-    "rows_removed": 63,
-    "cols_before": 64,
-    "cols_after": 43,
+    "timestamp": "2026-01-11T00:51:55.037173",
+    "rows_before": 1588,
+    "rows_after": 1529,
+    "rows_removed": 59,
+    "cols_before": 68,
+    "cols_after": 49,
     "details": {
-        "total_removed": 63,
-        "critical_errors_removed": 41,
-        "saved_by_context": 27
+        "zscore": {
+            "SiteEnergyUse(kBtu)": {
+                "n_obs": 1586,
+                "n_extreme_z": 3,
+                "max_abs_z": 7.737692730936202
+            },
+            "SiteEnergyUseWN(kBtu)": {
+                "n_obs": 1586,
+                "n_extreme_z": 3,
+                "max_abs_z": 7.795983646389038
+            },
+            "TotalGHGEmissions": {
+                "n_obs": 1586,
+                "n_extreme_z": 0,
+                "max_abs_z": 3.598470019322293
+            },
+            "SiteEUIWN(kBtu/sf)": {
+                "n_obs": 1586,
+                "n_extreme_z": 3,
+                "max_abs_z": 7.002450433678436
+            },
+            "SourceEUI(kBtu/sf)": {
+                "n_obs": 1586,
+                "n_extreme_z": 4,
+                "max_abs_z": 6.56414851577185
+            },
+            "SourceEUIWN(kBtu/sf)": {
+                "n_obs": 1586,
+                "n_extreme_z": 4,
+                "max_abs_z": 6.706965516306674
+            },
+            "Electricity(kWh)": {
+                "n_obs": 1586,
+                "n_extreme_z": 12,
+                "max_abs_z": 6.368302996599952
+            },
+            "Electricity(kBtu)": {
+                "n_obs": 1586,
+                "n_extreme_z": 12,
+                "max_abs_z": 6.696075699166317
+            }
+        },
+        "iqr": {
+            "NumberofFloors": {
+                "n_obs": 1577,
+                "n_iqr_outliers": 33
+            },
+            "GHGEmissionsIntensity": {
+                "n_obs": 1586,
+                "n_iqr_outliers": 20
+            },
+            "SiteEUI(kBtu/sf)": {
+                "n_obs": 1585,
+                "n_iqr_outliers": 21
+            },
+            "NaturalGas(therms)": {
+                "n_obs": 1586,
+                "n_iqr_outliers": 54
+            },
+            "NaturalGas(kBtu)": {
+                "n_obs": 1586,
+                "n_iqr_outliers": 54
+            },
+            "SteamUse(kBtu)": {
+                "n_obs": 1586,
+                "n_iqr_outliers": 107
+            },
+            "PropertyGFATotal": {
+                "n_obs": 1588,
+                "n_iqr_outliers": 50
+            },
+            "LargestPropertyUseTypeGFA": {
+                "n_obs": 1582,
+                "n_iqr_outliers": 52
+            },
+            "SecondLargestPropertyUseTypeGFA": {
+                "n_obs": 824,
+                "n_iqr_outliers": 30
+            },
+            "ENERGYSTARScore": {
+                "n_obs": 1035,
+                "n_iqr_outliers": 1
+            }
+        },
+        "rows_flagged_zscore_sum": 3,
+        "rows_flagged_iqr_critical": 70,
+        "massive_structures_preserved": 13,
+        "total_section3_removed": 59,
+        "share_removed": 0.0371536523929471
     }
 }

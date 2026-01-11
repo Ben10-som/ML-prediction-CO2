@@ -1,11 +1,11 @@
 {
     "step": "section_2",
-    "timestamp": "2026-01-06T22:34:32.498322",
-    "rows_before": 1505,
-    "rows_after": 1458,
-    "rows_removed": 47,
-    "cols_before": 45,
-    "cols_after": 43,
+    "timestamp": "2026-01-11T00:51:54.470695",
+    "rows_before": 1624,
+    "rows_after": 1588,
+    "rows_removed": 36,
+    "cols_before": 50,
+    "cols_after": 48,
     "details": {
         "rows_removed_invalid_gfa": 0,
         "rows_removed_invalid_energy_vals": 1,
