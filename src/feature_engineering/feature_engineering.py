@@ -5,14 +5,7 @@ import numpy as np
 import pandas as pd
 from utils.config_loader import PROJECT_ROOT
 
-def feature_engineering_seattle(df: pd.DataFrame,
-                               year_ref: int = 2016,
-                               eps: float = 1e-9,
-                               drop_leaky_cols: bool = True,
-                               keep_raw_energy_cols: bool = True,
-                               output_dir: str | Path = "data/proceed",
-                               filename: str = "feature_engineered.csv",
-                               metadata: dict | None = None) -> pd.DataFrame:
+def feature_engineering_seattle(df: pd.DataFrame, cfg) -> pd.DataFrame:
     """
     Feature engineering pour prédire TotalGHGEmissions (target).
     - Construit features "physiques" (taille, âge, mix énergétique, ratios, interactions)
@@ -21,6 +14,12 @@ def feature_engineering_seattle(df: pd.DataFrame,
     """
 
     df_fe = df.copy()
+    fe_cfg = cfg.feature_engineering
+    params = fe_cfg.params
+    selection = fe_cfg.selection
+
+    year_ref = params.year_ref
+    eps = params.eps
 
     # =========================
     # 0) Colonnes
@@ -54,30 +53,9 @@ def feature_engineering_seattle(df: pd.DataFrame,
     COL_LAT    = "Latitude"
     COL_LON    = "Longitude"
 
-    # colonnes à jeter (ID/texte inutile)
-    DROP_ALWAYS = [
-        "OSEBuildingID",
-        "PropertyName",
-        "TaxParcelIdentificationNumber",
-        "Address",
-        "City",
-        "State",
-        "Comments",
-        "YearsENERGYSTARCertified",
-        "ListOfAllPropertyUseTypes",
-        "DataYear",
-    ]
-
-    # fuite (leakage) si target = TotalGHGEmissions
-    DROP_LEAKY = [
-        "GHGEmissionsIntensity",   # dérivé direct de la cible
-    ]
-
-    # doublons unités (on préfère kBtu)
-    DROP_UNIT_DUPLICATES = [
-        COL_ELEC_KWH,
-        COL_GAS_TH,
-    ]
+    DROP_ALWAYS = list(fe_cfg.drop_always)
+    DROP_LEAKY = list(fe_cfg.drop_leaky)
+    DROP_UNIT_DUPLICATES = list(fe_cfg.drop_unit_duplicates)
 
     # =========================
     # 1) Nettoyage types numériques (coerce)
@@ -127,12 +105,13 @@ def feature_engineering_seattle(df: pd.DataFrame,
     # 3) Features temporelles : Age + Era
     # =========================
     if COL_YEAR in df_fe.columns:
-        df_fe["Age"] = year_ref - df_fe[COL_YEAR]
+        year_series = pd.to_numeric(df_fe[COL_YEAR], errors="coerce")
+        df_fe["Age"] = year_ref - year_series
         # cap simple (évite valeurs absurdes)
         df_fe.loc[df_fe["Age"] < 0, "Age"] = np.nan
         df_fe.loc[df_fe["Age"] > 200, "Age"] = np.nan
 
-        y = df_fe[COL_YEAR]
+        y = year_series
         bins = [-np.inf, 1949, 1979, 1999, np.inf]
         labels = ["<1950", "1950-1980", "1980-2000", ">2000"]
         df_fe["Era"] = pd.cut(y, bins=bins, labels=labels)
@@ -240,40 +219,44 @@ def feature_engineering_seattle(df: pd.DataFrame,
     # =========================
     cols_to_drop = [c for c in DROP_ALWAYS if c in df_fe.columns]
 
-    if drop_leaky_cols:
+    if selection.drop_leaky:
         cols_to_drop += [c for c in DROP_LEAKY if c in df_fe.columns]
 
     # on drop les doublons d’unités si on garde les kBtu
     cols_to_drop += [c for c in DROP_UNIT_DUPLICATES if c in df_fe.columns]
 
     # si tu veux garder raw energy ou pas
-    if not keep_raw_energy_cols:
-        raw_energy = [COL_SITEN, COL_SITENW, COL_ELEC_KBTU, COL_GAS_KBTU, COL_STEAM, COL_EUI, COL_EUI_WN]
+    if not selection.keep_raw_energy:
+        raw_energy = list(fe_cfg.raw_energy_cols)
         cols_to_drop += [c for c in raw_energy if c in df_fe.columns]
 
     # Important : on NE drop PAS la target ici (utile pour split train/test),
     # mais si tu veux X prêt, tu feras X = df_fe.drop(columns=[COL_TARGET])
     df_fe = df_fe.drop(columns=list(dict.fromkeys(cols_to_drop)), errors="ignore")
 
-    save_feature_engineering_output(
-        df_fe,
-        output_dir=output_dir,
-        filename=filename,
-        metadata=metadata,
-    )
+    # Nettoyage des résidus de nettoyage (piloté par config)
+    df_fe = df_fe.drop(columns=[c for c in fe_cfg.drop_list if c in df_fe.columns], errors="ignore")
+
+    # Harmonisation des flags pour réduire la mémoire
+    for col in fe_cfg.flag_cols:
+        if col in df_fe.columns:
+            df_fe[col] = df_fe[col].fillna(0).astype("uint8")
+
+    # Allow-list finale
+    if selection.final_features_only:
+        final_features = [c for c in fe_cfg.final_features if c in df_fe.columns]
+        df_fe = df_fe.loc[:, final_features]
+
+    save_feature_engineering_output(df_fe, cfg)
     return df_fe
 
 
-def save_feature_engineering_output(
-    df: pd.DataFrame,
-    output_dir: str | Path = "data/proceed",
-    filename: str = "feature_engineered.csv",
-    metadata: dict | None = None,
-) -> Path:
-    output_dir = Path(output_dir)
+def save_feature_engineering_output(df: pd.DataFrame, cfg) -> Path:
+    output_dir = Path(cfg.feature_engineering.output.dir)
     if not output_dir.is_absolute():
         output_dir = (PROJECT_ROOT / output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
+    filename = cfg.feature_engineering.output.file
     output_path = output_dir / filename
     df.to_csv(output_path, index=False)
     meta_path = output_dir / f"{Path(filename).stem}_metadata.json"
@@ -282,20 +265,9 @@ def save_feature_engineering_output(
         "rows": int(len(df)),
         "cols": int(df.shape[1]),
         "file": str(output_path),
-        "metadata": metadata or {},
+        "metadata": cfg.feature_engineering.metadata or {},
     }
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta_payload, f, indent=4, ensure_ascii=False)
     print(f"✓ Feature engineering sauvegarde dans : {output_path}")
     return output_path
-
-
-def feature_engineering_seattle_and_save(
-    df: pd.DataFrame,
-    output_dir: str | Path = "data/proceed",
-    filename: str = "feature_engineered.csv",
-    **kwargs,
-) -> pd.DataFrame:
-    df_fe = feature_engineering_seattle(df, **kwargs)
-    save_feature_engineering_output(df_fe, output_dir=output_dir, filename=filename)
-    return df_fe
