@@ -5,22 +5,25 @@ import numpy as np
 import pandas as pd
 from utils.config_loader import PROJECT_ROOT
 
-def feature_engineering_seattle(df: pd.DataFrame, cfg) -> pd.DataFrame:
+def feature_engineering_seattle(
+    df: pd.DataFrame, 
+    year_ref: int, 
+    eps: float, 
+    drop_leaky_cols: bool, 
+    keep_raw_energy_cols: bool, 
+    output_dir: Path, 
+    filename: str, 
+    metadata: dict,
+    fe_cfg = None 
+) -> pd.DataFrame:
     """
     Feature engineering pour prédire TotalGHGEmissions (target).
-    - Construit features "physiques" (taille, âge, mix énergétique, ratios, interactions)
-    - Ajoute features spatiales simples (Downtown + geo)
-    - Supprime colonnes inutiles/ID + fuite (GHGEmissionsIntensity)
     """
-
-    df_fe = df.copy()
-    fe_cfg = cfg.feature_engineering
-    params = fe_cfg.params
+    df_fe = df.copy() # On repart bien d'une copie du DF
+    
+    # On définit les raccourcis pour la suite du code
     selection = fe_cfg.selection
-
-    year_ref = params.year_ref
-    eps = params.eps
-
+    
     # =========================
     # 0) Colonnes
     # =========================
@@ -247,27 +250,24 @@ def feature_engineering_seattle(df: pd.DataFrame, cfg) -> pd.DataFrame:
         final_features = [c for c in fe_cfg.final_features if c in df_fe.columns]
         df_fe = df_fe.loc[:, final_features]
 
-    save_feature_engineering_output(df_fe, cfg)
+    save_feature_engineering_output(df_fe, output_dir, filename, metadata)
     return df_fe
 
-
-def save_feature_engineering_output(df: pd.DataFrame, cfg) -> Path:
-    output_dir = Path(cfg.feature_engineering.output.dir)
-    if not output_dir.is_absolute():
-        output_dir = (PROJECT_ROOT / output_dir).resolve()
+def save_feature_engineering_output(df: pd.DataFrame, output_dir: Path, filename: str, metadata: dict) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
-    filename = cfg.feature_engineering.output.file
     output_path = output_dir / filename
     df.to_csv(output_path, index=False)
+    
     meta_path = output_dir / f"{Path(filename).stem}_metadata.json"
     meta_payload = {
         "timestamp": datetime.now().isoformat(),
         "rows": int(len(df)),
         "cols": int(df.shape[1]),
         "file": str(output_path),
-        "metadata": cfg.feature_engineering.metadata or {},
+        "metadata": metadata,
     }
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta_payload, f, indent=4, ensure_ascii=False)
-    print(f"✓ Feature engineering sauvegarde dans : {output_path}")
+    
+    print(f"✓ Feature engineering sauvegardé dans : {output_path}")
     return output_path

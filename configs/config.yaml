@@ -4,7 +4,8 @@
 defaults:
   - data: paths
   - eda: params
-  - cleaning: default  # <--- AJOUTEZ CETTE LIGNE
+  - cleaning: default 
+
   - feature_engineering: default
   - _self_
 

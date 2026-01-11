@@ -8,7 +8,7 @@ selection:
   drop_leaky: true
 
 output:
-  dir: "data/proceed"
+  dir: "data/processed"
   file: "feature_engineered.csv"
 
 metadata: {}
@@ -108,3 +108,9 @@ final_features:
   - "SteamUse(kBtu)"
   - "SiteEUI(kBtu/sf)"
   - "SiteEUIWN(kBtu/sf)"
+drop_leaky_cols: true
+keep_raw_energy_cols: true
+filename: "model_input.csv"
+# On utilisera le chemin data.processed.dir
+output_dir: ${data.processed.dir}
+
