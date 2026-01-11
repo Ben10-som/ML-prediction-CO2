@@ -5,6 +5,7 @@ defaults:
   - data: paths
   - eda: params
   - cleaning: default  # <--- AJOUTEZ CETTE LIGNE
+  - feature_engineering: default
   - _self_
 
 # Informations projet
