@@ -19,6 +19,7 @@ section_0:
     "Low-Rise Multifamily"]
 
 section_1:
+  enable_imputation: true
   cols_to_drop: 
     - "exclusion_reason"
     - "Comments"

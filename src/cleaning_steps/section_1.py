@@ -1,3 +1,7 @@
+#
+#
+# Lors de la modélisation cette section ne sera appliqué qu'aprés le split train/test
+#
 """
 Module de nettoyage et d'imputation des données (Section 1).
 
@@ -39,9 +43,11 @@ class Section1(BaseCleaner):
         df = df.copy()
         s1_cfg = self.cfg.cleaning.section_1
         s2_cols = self.cfg.cleaning.section_2.columns
+        enable_imputation = s1_cfg.get("enable_imputation", True)
         audit_details = {
             "initial_count": len(df),
-            "rejections": {}
+            "rejections": {},
+            "imputation_enabled": enable_imputation
         }
 
         # --- 1. SÉCURITÉ ET FILTRAGE DE CONFORMITÉ ---
@@ -85,29 +91,34 @@ class Section1(BaseCleaner):
 
 
         # --- 3. IMPUTATIONS EN CASCADE (Usage -> Global) ---
-        # Calcul du taux de manquants avant imputation pour l'audit
-        missing_before = df_working.isnull().sum()
-        usage_col = s2_cols.primary_usage
-        
-        # Sélection des colonnes numériques ayant des valeurs manquantes
-        cols_to_impute = df_working.select_dtypes(include=[np.number]).columns
-        cols_to_impute = [c for c in cols_to_impute if df_working[c].isnull().any()]
+        # A appliquer uniquement si if enable_imputation=True
 
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", message="Mean of empty slice")
-            for col in cols_to_impute:
-                # Étape A : Médiane par type d'usage (plus précis)
-                df_working[col] = df_working.groupby(usage_col)[col].transform(
-                    lambda x: x.fillna(x.median())
-                )
-                # Étape B : Médiane globale (si le groupe d'usage était entièrement vide)
-                df_working[col] = df_working[col].fillna(df_working[col].median())
+        # Calcul du taux de NA avant imputation pour l'audit
+        if enable_imputation:
+            missing_before = df_working.isnull().sum()
+            usage_col = s2_cols.primary_usage
+            
+            # Sélection des colonnes numériques ayant des valeurs manquantes
+            cols_to_impute = df_working.select_dtypes(include=[np.number]).columns
+            cols_to_impute = [c for c in cols_to_impute if df_working[c].isnull().any()]
 
-                # Post-traitement spécifique (ex: les étages doivent être entiers)
-                if col == s2_cols.floors:
-                    df_working[col] = df_working[col].round().astype(int)
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", message="Mean of empty slice")
+                for col in cols_to_impute:
+                    # Étape A : Médiane par type d'usage (plus précis)
+                    df_working[col] = df_working.groupby(usage_col)[col].transform(
+                        lambda x: x.fillna(x.median())
+                    )
+                    # Étape B : Médiane globale (si le groupe d'usage était entièrement vide)
+                    df_working[col] = df_working[col].fillna(df_working[col].median())
 
-        audit_details["imputed_columns"] = {col: int(missing_before[col]) for col in cols_to_impute}
+                    # Post-traitement spécifique (ex: les étages doivent être entiers)
+                    if col == s2_cols.floors:
+                        df_working[col] = df_working[col].round().astype(int)
+
+            audit_details["imputed_columns"] = {col: int(missing_before[col]) for col in cols_to_impute}
+        else:
+            audit_details["imputed_columns"] = {}
 
         # --- 4. SUPPRESSION DES LIGNES TROP VIDES ---
         row_missing_pct = df_working.isnull().mean(axis=1)
