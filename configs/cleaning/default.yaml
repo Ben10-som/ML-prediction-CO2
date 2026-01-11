@@ -25,6 +25,8 @@ section_1:
     - "YearsENERGYSTARCertified"
     - "ThirdLargestPropertyUseType"
     - "ThirdLargestPropertyUseTypeGFA"
+    - "SecondLargestPropertyUseType"
+    - "SecondLargestPropertyUseTypeGFA"
   thresholds:
     low_missing_pct: 0.01      # Seuil pour imputation par groupe (1%)
     row_max_missing_pct: 0.30  # Seuil suppression lignes (30%)
