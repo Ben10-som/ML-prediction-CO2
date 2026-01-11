@@ -33,6 +33,11 @@ def run_feature_engineering_pipeline(df: pd.DataFrame, cfg: DictConfig) -> pd.Da
     # Préparation des arguments depuis la config Hydra
     output_dir = (PROJECT_ROOT / cfg.feature_engineering.output_dir).resolve()
 
+    #filename = cfg.feature_engineering.filename
+    filename=None
+    if filename is None:
+        filename = f"{getattr(df, 'name', 'features')}.csv"
+
     df_fe = feature_engineering_seattle(
         df=df,
         year_ref=cfg.feature_engineering.year_ref,
@@ -40,9 +45,10 @@ def run_feature_engineering_pipeline(df: pd.DataFrame, cfg: DictConfig) -> pd.Da
         drop_leaky_cols=cfg.feature_engineering.drop_leaky_cols,
         keep_raw_energy_cols=cfg.feature_engineering.keep_raw_energy_cols,
         output_dir=output_dir,
-        filename=cfg.feature_engineering.filename,
+        filename=filename,
         metadata={"source": "hydra_pipeline", "run_type": "notebook/script"}
     )
+
 
     logger.info(f"✓ Feature Engineering terminé. Shape: {df_fe.shape}")
     return df_fe

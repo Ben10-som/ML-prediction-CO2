@@ -1,6 +1,6 @@
 {
     "step": "section_1",
-    "timestamp": "2026-01-11T03:20:16.443233",
+    "timestamp": "2026-01-11T15:44:37.790991",
     "rows_before": 1529,
     "rows_after": 1421,
     "rows_removed": 108,
@@ -13,15 +13,8 @@
             "non_compliant": 108,
             "excessive_missing": 0
         },
-        "imputed_columns": {
-            "ZipCode": 13,
-            "NumberofFloors": 6,
-            "LargestPropertyUseTypeGFA": 4,
-            "SecondLargestPropertyUseTypeGFA": 644,
-            "ThirdLargestPropertyUseTypeGFA": 1103,
-            "ENERGYSTARScore": 510,
-            "Comments": 1421
-        },
+        "imputation_enabled": false,
+        "imputed_columns": {},
         "dropped_columns": [
             "exclusion_reason",
             "Comments",
