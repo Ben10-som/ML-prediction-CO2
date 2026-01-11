@@ -1,16 +1,17 @@
 {
     "step": "section_2",
-    "timestamp": "2026-01-06T22:34:32.498322",
+    "timestamp": "2026-01-10T23:52:23.147704",
     "rows_before": 1505,
-    "rows_after": 1458,
-    "rows_removed": 47,
+    "rows_after": 1472,
+    "rows_removed": 33,
     "cols_before": 45,
     "cols_after": 43,
     "details": {
         "rows_removed_invalid_gfa": 0,
         "rows_removed_invalid_energy_vals": 1,
-        "potential_floors_to_impute": 12,
-        "rows_removed_gfa_ratio_incoherent": 28,
-        "rows_removed_energy_sum_incoherent": 8
+        "total_floors_imputed": 12,
+        "campus_floors_imputed": 2,
+        "rows_removed_gfa_ratio_incoherent": 26,
+        "rows_removed_energy_sum_incoherent": 7
     }
 }

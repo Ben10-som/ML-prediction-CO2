@@ -1,14 +1,14 @@
 {
     "step": "section_3",
-    "timestamp": "2026-01-06T22:34:33.178331",
-    "rows_before": 1458,
-    "rows_after": 1395,
-    "rows_removed": 63,
+    "timestamp": "2026-01-10T23:52:23.643767",
+    "rows_before": 1472,
+    "rows_after": 1407,
+    "rows_removed": 65,
     "cols_before": 64,
     "cols_after": 43,
     "details": {
-        "total_removed": 63,
-        "critical_errors_removed": 41,
-        "saved_by_context": 27
+        "total_removed": 65,
+        "critical_errors_removed": 42,
+        "saved_by_context": 30
     }
 }

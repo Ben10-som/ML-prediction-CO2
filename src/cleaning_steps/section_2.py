@@ -89,9 +89,9 @@ class Section2(BaseCleaner):
         audit_details = {
             "rows_removed_invalid_gfa": int(mask_gfa_invalid.sum()),
             "rows_removed_invalid_energy_vals": int(mask_energy_invalid.sum()),
-            "total_floors_imputed": int(mask_impute_floors.sum()),
+            "total_floors_imputed": int(mask_bad_floors.sum()),
             # On compte les lignes imputées qui étaient aussi des Campus
-            "campus_floors_imputed": int((mask_impute_floors & (df['IsAggregatedCampus'] == 1)).sum()),
+            "campus_floors_imputed": int((mask_bad_floors & (df['IsAggregatedCampus'] == 1)).sum()),
             "rows_removed_gfa_ratio_incoherent": int(mask_gfa_ratio_invalid.sum()),
             "rows_removed_energy_sum_incoherent": int(mask_energy_sum_invalid.sum())
         }
