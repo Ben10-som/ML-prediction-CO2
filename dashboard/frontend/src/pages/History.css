@@ -1,0 +1,13 @@
+/* La table hérite des styles globaux de App.css */
+/* On peut ajouter des styles spécifiques si besoin */
+
+.history-page {
+    /* Animation d'entrée */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.history-page table th {
+    /* Exemple d'override spécifique */
+    background-color: #f1f5f9;
+    color: var(--text-primary);
+}

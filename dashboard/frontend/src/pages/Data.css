@@ -1,0 +1,59 @@
+.data-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.data-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.data-header p {
+    color: var(--text-secondary);
+    margin: 4px 0 0 0;
+}
+
+.btn-download {
+    background-color: var(--success-color);
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    transform: none;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+.btn-download:hover {
+    background-color: #059669;
+    /* Darker Green */
+    box-shadow: var(--shadow-md);
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    background: white;
+}
+
+.table-info {
+    padding: 15px;
+    text-align: right;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    border-top: 1px solid #e2e8f0;
+    margin: 0;
+}
+
+/* Force table styling inside container if needed */
+.table-container table {
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
