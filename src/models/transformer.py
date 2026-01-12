@@ -2,6 +2,10 @@
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.compose import ColumnTransformer
+from sklearn.discriminant_analysis import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, RobustScaler
 
 
 class GroupMedianImputer(BaseEstimator, TransformerMixin):
@@ -90,3 +94,45 @@ class GroupModeImputer(BaseEstimator, TransformerMixin):
         # conserver la colonne de regroupement avant l'encodeur
         return X
 
+
+def make_preprocessor(
+    num_cols,
+    cat_cols,
+    binary_cols,
+    group_col,
+    categorical_features,
+    numeric_scaler="robust",
+    min_group_size=1,
+    ohe_sparse_output=False,
+):
+    scaler_map = {
+        "robust": RobustScaler(),
+        "standard": StandardScaler(),
+        "none": "passthrough",
+        None: "passthrough",
+    }
+    if numeric_scaler not in scaler_map:
+        raise ValueError(f"numeric_scaler invalide: {numeric_scaler}")
+    scaler = scaler_map[numeric_scaler]
+
+    numeric_steps = [
+        ("imputer", GroupMedianImputer(group_col=group_col, min_group_size=min_group_size)),
+    ]
+    if scaler != "passthrough":
+        numeric_steps.append(("scaler", scaler))
+
+    numeric_pipeline = Pipeline(numeric_steps)
+    categorical_pipeline = Pipeline([
+        ("imputer", GroupModeImputer(group_col=group_col, categorical_cols=categorical_features, min_group_size=min_group_size)),
+        ("ohe", OneHotEncoder(handle_unknown="ignore", sparse_output=ohe_sparse_output)),
+    ])
+
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ("num", numeric_pipeline, [group_col] + num_cols),
+            ("bin", "passthrough", binary_cols),
+            ("cat", categorical_pipeline, cat_cols),
+        ],
+        remainder="drop",
+    )
+    return preprocessor
