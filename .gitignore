@@ -3,6 +3,7 @@ env/
 # Ré-autoriser les CSV dans reports et ses sous-dossiers
 !reports/**/*.csv
 !figures/**/*.csv
+!best_models/**/*.csv
 
 **/*.parquet
 **/__pycache__/
