@@ -1,8 +1,9 @@
 
 # python src/models/hparams_search.py --multirun model=ridge,lasso,rf_baseline,xgb
 
-
-
+#export PYTHONUTF8=1
+# pour run sans les variables energy star scores
+# python src/models/hparams_search.py --multirun feature_engineering=no_energy_star model=ridge,lasso,rf_baseline,xgb project.name="CO2_No_EnergyStar"
 import sys
 import logging
 import io

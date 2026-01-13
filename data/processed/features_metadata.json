@@ -1,7 +1,7 @@
 {
-    "timestamp": "2026-01-13T11:02:05.964877",
+    "timestamp": "2026-01-13T12:14:46.516428",
     "rows": 1421,
-    "cols": 23,
+    "cols": 19,
     "file": "C:\\Users\\HP\\Desktop\\temp\\TODO\\SEMESTRE_1\\ML1\\ML-prediction-CO2\\data\\processed\\features.csv",
     "metadata": {
         "source": "hydra_pipeline",
