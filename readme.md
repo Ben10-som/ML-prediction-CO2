@@ -86,7 +86,10 @@ Endpoints principaux :
 
 ## Déploiements
 - Dashboard (Vercel) : https://co2-prediction-seattle.vercel.app/
+![Dashboard](https://res.cloudinary.com/dsiban6wc/image/upload/v1768317047/c57ce450-bfb5-48e0-8250-1318d58204a6.png)
+
 - API (AWS ECS) : https://co-e0d0ef8ded0e469293ef4e043ef80593.ecs.eu-west-3.on.aws/
+![AWS](https://res.cloudinary.com/dsiban6wc/image/upload/v1768317153/3076a198-7616-45e6-aed3-ef0911e782ea.png)
 
 ## Structure du dépôt
 ```
