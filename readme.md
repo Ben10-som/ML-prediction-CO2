@@ -1,4 +1,11 @@
-# ML-prediction-CO2 — Seattle Energy Benchmarking 2016
+# <img src="https://res.cloudinary.com/dsiban6wc/image/upload/v1768303944/images_cwini1.jpg" alt="Seattle logo" height="36" /> ML-prediction-CO2 — Seattle Energy Benchmarking 2016
+
+![GitHub last commit](https://img.shields.io/github/last-commit/Ben10-som/ML-prediction-CO2?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/Ben10-som/ML-prediction-CO2?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/Ben10-som/ML-prediction-CO2?style=flat-square)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Ben10-som/ML-prediction-CO2?style=flat-square)
+![GitHub stars](https://img.shields.io/github/stars/Ben10-som/ML-prediction-CO2?style=flat-square)
+![GitHub forks](https://img.shields.io/github/forks/Ben10-som/ML-prediction-CO2?style=flat-square)
 
 ## Résumé exécutif
 Ce projet couvre l’ensemble de la chaîne data science pour prédire les émissions de CO2 des bâtiments non résidentiels de Seattle (2016). Il combine ingestion contrôlée, audit de qualité, nettoyage par règles métier, feature engineering structuré, modélisation et mise à disposition via API + dashboard.
@@ -126,6 +133,44 @@ npm start
 - API + dashboard fonctionnels : `dashboard/`.
 
 ## Contributeurs
-| | | | | |
-| --- | --- | --- | --- | --- |
-| [<img src="https://avatars.githubusercontent.com/Mafieuu?v=4" width="80" alt="Moussa DIEME" />](https://github.com/Mafieuu)<br>Moussa DIEME | [<img src="https://avatars.githubusercontent.com/Ben10-som?v=4" width="80" alt="Ben Idriss SOMA" />](https://github.com/Ben10-som)<br>Ben Idriss SOMA | [<img src="https://avatars.githubusercontent.com/PapaAmad?v=4" width="80" alt="Papa Amadou NIANG" />](https://github.com/PapaAmad)<br>Papa Amadou NIANG | [<img src="https://avatars.githubusercontent.com/proslawa?v=4" width="80" alt="Lawa Foumsou PROSPERE" />](https://github.com/proslawa)<br>Lawa Foumsou PROSPERE | [<img src="https://avatars.githubusercontent.com/tamsir03?v=4" width="80" alt="Tamsir NDONG" />](https://github.com/tamsir03)<br>Tamsir NDONG |
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/Mafieuu">
+          <img src="https://avatars.githubusercontent.com/Mafieuu?v=4" width="80" alt="Moussa DIEME" />
+        </a>
+        <br />
+        Moussa DIEME
+      </td>
+      <td align="center">
+        <a href="https://github.com/Ben10-som">
+          <img src="https://avatars.githubusercontent.com/Ben10-som?v=4" width="80" alt="Ben Idriss SOMA" />
+        </a>
+        <br />
+        Ben Idriss SOMA
+      </td>
+      <td align="center">
+        <a href="https://github.com/PapaAmad">
+          <img src="https://avatars.githubusercontent.com/PapaAmad?v=4" width="80" alt="Papa Amadou NIANG" />
+        </a>
+        <br />
+        Papa Amadou NIANG
+      </td>
+      <td align="center">
+        <a href="https://github.com/proslawa">
+          <img src="https://avatars.githubusercontent.com/proslawa?v=4" width="80" alt="Lawa Foumsou PROSPERE" />
+        </a>
+        <br />
+        Lawa Foumsou PROSPERE
+      </td>
+      <td align="center">
+        <a href="https://github.com/tamsir03">
+          <img src="https://avatars.githubusercontent.com/tamsir03?v=4" width="80" alt="Tamsir NDONG" />
+        </a>
+        <br />
+        Tamsir NDONG
+      </td>
+    </tr>
+  </table>
+</div>
