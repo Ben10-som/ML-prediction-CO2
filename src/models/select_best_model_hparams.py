@@ -8,7 +8,8 @@ from omegaconf import DictConfig
 
 import sys
 from pathlib import Path
-
+#python src/models/select_best_model_hparams.py project.name="CO2_No_EnergyStar"
+# pour best modele avec 
 # ===== FIX CRITIQUE POUR CLOUDPICKLE =====
 CURRENT_FILE = Path(__file__).resolve()
 SRC_PATH = CURRENT_FILE.parent.parent  # src/
