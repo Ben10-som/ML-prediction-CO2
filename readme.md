@@ -64,6 +64,7 @@ Avec `ENERGYSTARScore` (`best_model/seattle_energy_2016_ml/best_model_metrics.cs
 | RMSE | 0.6305 |
 
 Sans `ENERGYSTARScore` (`best_model/CO2_No_EnergyStar/best_model_metrics.csv`) :
+![sans energy stare modèle MLflow](/figures/mlflow/no_energy_star_hyperparams/diagnostic_Best_Ridge.png)
 
 | Metric | Test |
 | --- | --- |
