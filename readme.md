@@ -47,19 +47,16 @@ Le choix d’ordre est documenté dans `reports/notebook_1/compte_rendu.md`.
 
 ### 4) Modélisation
 - Notebooks de modélisation : `notebooks/06_modeling_pipeline.ipynb` et variantes.
-- Modèle final référencé : `models/best_pipeline_Hist_Gradient_Boosting_20260112_232801.joblib`.
+- Modèle final référencé : `best_model/best_model_ridge.joblib`.
 
 ## Résultats modèle (snapshot)
-D’après `models/best_metrics_20260112_232801.json` :
+D’après `best_model/best_model_metrics.csv` (ridge) :
 
-| Metric | Train | Test |
-| --- | --- | --- |
-| MAE | 0.180 | 0.523 |
-| RMSE | 0.235 | 0.678 |
-| R2 | 0.971 | 0.778 |
-| MAPE | 0.058 | 0.163 |
-| MAE (original scale) | - | 97.776 |
-| RMSE (original scale) | - | 373.783 |
+| Metric | Test |
+| --- | --- |
+| R2 | 0.7610 |
+| MAE | 0.5545 |
+| RMSE | 0.7039 |
 
 ## API & Dashboard
 - API FastAPI : `dashboard/backend/api.py`.
@@ -79,13 +76,14 @@ Endpoints principaux :
 
 ## Structure du dépôt
 ```
-configs/               # Configs Hydra (chemins, nettoyage, FE)
+best_model/            # Artefacts du meilleur modèle + métriques
+configs/               # Configs Hydra (chemins, nettoyage, FE, modèles)
 data/                  # Raw, interim, processed + metadata
 figures/               # Graphiques de diagnostics
-models/                # Artefacts ML (pipelines, métriques)
+mlflow.db              # Tracking local MLflow
 notebooks/             # Notebooks d’analyse & modélisation
 reports/               # Synthèses et rapports exportés
-src/                   # Pipeline Python (ingestion, cleaning, FE)
+src/                   # Pipeline Python (ingestion, cleaning, FE, modèles)
 dashboard/             # API FastAPI + frontend React
 tests/                 # Tests unitaires
 ```
@@ -134,7 +132,7 @@ npm start
 ## Livrables clés
 - Dictionnaire de données : `reports/notebook_0/data_dictionary_auto.md`.
 - Rapports de synthèse : `reports/notebook_0/`, `reports/notebook_1/`, `reports/notebook_5/`.
-- Modèles et métriques : `models/`.
+- Modèle et métriques : `best_model/`.
 - API + dashboard fonctionnels : `dashboard/`.
 
 ## Contributeurs
