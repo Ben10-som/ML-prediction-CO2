@@ -1,4 +1,9 @@
-# <img src="https://res.cloudinary.com/dsiban6wc/image/upload/v1768303944/images_cwini1.jpg" alt="Seattle logo" height="36" /> ML-prediction-CO2 — Seattle Energy Benchmarking 2016
+<table>
+  <tr>
+    <td><img src="https://res.cloudinary.com/dsiban6wc/image/upload/v1768303944/images_cwini1.jpg" alt="Seattle logo" height="48" /></td>
+    <td><h1>ML-prediction-CO2 — Seattle Energy Benchmarking 2016</h1></td>
+  </tr>
+</table>
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/Ben10-som/ML-prediction-CO2?style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Ben10-som/ML-prediction-CO2?style=flat-square)
