@@ -59,6 +59,8 @@ D’après `best_model/best_model_metrics.csv` (ridge) :
 | MAE | 0.4977 |
 | RMSE | 0.6305 |
 
+![sans energy stare modèle MLflow](/figures/mlflow/no_energy_star_hyperparams/diagnostic_Best_Ridge.png)
+
 ## API & Dashboard
 - API FastAPI : `dashboard/backend/api.py`.
 - Modèle utilisé par l’API : `dashboard/models/co2_model.joblib`.
