@@ -1,0 +1,12 @@
+name: "RandomForest"
+params:
+  _target_: sklearn.ensemble.RandomForestRegressor
+  n_estimators: 100
+  random_state: 42
+
+scaler: "robust"
+
+search_space:
+  n_estimators: [100, 200]
+  max_depth: [10, 20, null]
+  min_samples_split: [2, 5]

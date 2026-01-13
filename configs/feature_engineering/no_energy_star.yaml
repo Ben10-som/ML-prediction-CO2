@@ -64,12 +64,10 @@ flag_cols:
 
 final_features:
   - "IsMixedUse"
-  - "Has_EnergyStarScore"
   - "TotalGHGEmissions"
   - "NumberofFloors"
   - "NumberofBuildings"
   - "Age"
-  - "ENERGYSTARScore"
   - "PrimaryPropertyType"
   - "BuildingType"
   - "Neighborhood"
@@ -82,13 +80,11 @@ final_features:
   - "surface_per_floor"
   - "Has_Parking"
   - "Parking_share"
-  - "Has_ENERGYSTAR"
   - "Has_Gas"
   - "Has_Steam"
-  - "Age_ENERGYSTAR"
 drop_leaky_cols: true
 keep_raw_energy_cols: true
-filename: "model_input.csv"
+filename: "model_input_no_energy_stare.csv"
 # On utilisera le chemin data.processed.dir
 output_dir: ${data.processed.dir}
 

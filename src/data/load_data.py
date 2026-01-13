@@ -108,7 +108,7 @@ def save_metadata(df: pd.DataFrame, cfg: DictConfig, file_path: Path) -> None:
         # Pour l'instant, on reste informatif :
         logger.info(f" Nouvelle version détectée pour {file_path.name} (MàJ de l'historique).")
     else:
-        logger.info(f"✔️ {file_path.name} : Identique à la version précédente.")
+        logger.info(f" {file_path.name} : Identique à la version précédente.")
         return
 
     #  Sauvegarde si changement
