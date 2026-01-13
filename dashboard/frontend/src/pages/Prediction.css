@@ -1,0 +1,74 @@
+.prediction-page form {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.prediction-page label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.prediction-page input,
+.prediction-page select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.checkbox-group input {
+    width: auto;
+    margin-right: 8px;
+}
+
+.prediction-page button {
+    width: 100%;
+    background-color: #1e90ff;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.prediction-page button:hover {
+    background-color: #0077cc;
+}
+
+.result {
+    margin-top: 30px;
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.2em;
+    padding: 15px;
+    background: #e6f7ff;
+    border-radius: 8px;
+    border-left: 5px solid #1e90ff;
+}
