@@ -63,11 +63,6 @@ flag_cols:
   - "Has_EnergyStarScore"
 
 final_features:
-  - "Has_Parking"
-  - "Has_ENERGYSTAR"
-  - "Has_Gas"
-  - "Has_Steam"
-  - "Is_Downtown"
   - "IsMixedUse"
   - "Has_EnergyStarScore"
   - "TotalGHGEmissions"
