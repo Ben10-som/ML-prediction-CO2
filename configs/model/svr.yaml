@@ -1,0 +1,12 @@
+name: "SVR"
+scaler: "standard"
+params:
+  _target_: sklearn.svm.SVR
+  kernel: "rbf"
+  C: 1.0
+  epsilon: 0.1
+
+search_space:
+  model__C: [0.1, 1, 10, 100]
+  model__gamma: ["scale", "auto"]
+  model__epsilon: [0.01, 0.1, 0.5]
