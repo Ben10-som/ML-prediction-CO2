@@ -54,9 +54,9 @@ D’après `best_model/best_model_metrics.csv` (ridge) :
 
 | Metric | Test |
 | --- | --- |
-| R2 | 0.7610 |
-| MAE | 0.5545 |
-| RMSE | 0.7039 |
+| R2 | 0.8082 |
+| MAE | 0.4977 |
+| RMSE | 0.6305 |
 
 ## API & Dashboard
 - API FastAPI : `dashboard/backend/api.py`.
