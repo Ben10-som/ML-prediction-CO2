@@ -46,6 +46,7 @@ Le choix d’ordre est documenté dans `reports/notebook_1/compte_rendu.md`.
 - Pipeline paramétré via `configs/feature_engineering/default.yaml`.
 
 ### 4) Modélisation
+![Meilleur modèle MLflow](/figures/mlflow/best.png)
 - Notebooks de modélisation : `notebooks/06_modeling_pipeline.ipynb` et variantes.
 - Modèle final référencé : `best_model/best_model_ridge.joblib`.
 
