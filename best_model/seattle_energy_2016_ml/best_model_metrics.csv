@@ -1,0 +1,8 @@
+,0
+run_id,d0d83f3230ec4c6193c900eaeff2431c
+model_name,ridge
+R2,0.8082366150197837
+MAE,0.49765944618291685
+RMSE,0.6305381264095644
+experiment,seattle_energy_2016_ml_Optimization
+artifact,best_model_ridge.joblib

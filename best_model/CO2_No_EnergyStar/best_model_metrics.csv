@@ -1,0 +1,8 @@
+,0
+run_id,c84cd68b28db4cc4851b6d37af629f5d
+model_name,ridge
+R2,0.7609975906806268
+MAE,0.5545067792698741
+RMSE,0.7039302812805117
+experiment,CO2_No_EnergyStar_Optimization
+artifact,best_model_ridge.joblib
