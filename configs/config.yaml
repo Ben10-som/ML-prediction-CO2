@@ -7,6 +7,7 @@ defaults:
   - cleaning: default 
 
   - feature_engineering: default
+  - model: rf_baseline # Par défaut, on lance la baseline
   - _self_
 
 # Informations projet

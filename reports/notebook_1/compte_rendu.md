@@ -11,6 +11,15 @@ Nous avons défini la séquence d'exécution suivante pour garantir l'intégrit�
 3. **Section 3** : Détection des outliers statistiques.
 4. **Section 1** : Gestion des valeurs manquantes et suppression des colonnes.
 
+### Problème de l’imputation avant le split train/test
+
+Imputer les valeurs manquantes **avant** le découpage train/test introduit un biais méthodologique majeur, communément appelé *data leakage*. En effet, les statistiques utilisées pour l’imputation (médiane par usage, médiane globale, etc.) sont alors calculées sur l’ensemble du dataset, y compris sur les observations qui devraient appartenir au jeu de test. Le modèle est donc indirectement exposé à de l’information qu’il ne devrait pas connaître au moment de l’entraînement, ce qui conduit à des performances artificiellement optimistes et non reproductibles.
+
+Ce problème a été traité dans l’architecture du pipeline via le module `section1.py`. La fonction `Section1.run()` dispose d’un argument de configuration `enable_imputation`, activé par défaut (`True`).  
+- En **phase d’EDA**, l’imputation est activée afin de faciliter l’exploration, la visualisation et l’analyse statistique des données.  
+- En **phase de modélisation**, l’imputation est désactivée : le split train/test est effectué sur des données non imputées, et l’imputation est ensuite intégrée proprement dans le pipeline de modélisation (apprise uniquement sur le train et appliquée au test).
+
+
 ---
 
 ### Justification et choix méthodologique
@@ -82,14 +91,18 @@ Le tableau est organisé en colonnes distinctes permettant une traçabilité com
 
 
 
-#### Section 1 : Finalisation et Imputations en cascade
+
+### Section 1 : Finalisation et Imputations en cascade
+
+Cette section constitue le dernier verrou de qualité avant l'exportation du dataset. Elle transforme les lacunes de données en signaux explicites pour le modèle et assure l'intégrité statistique de l'échantillon.
 
 | Ordre | Variable cible | Action technique | Justification méthodologique | Validation attendue |
 | --- | --- | --- | --- | --- |
-| 16 | **Outlier** et **ComplianceStatus** | Supprimer toute ligne où la colonne `Outlier` est non vide ou `ComplianceStatus` n'est pas "Compliant" | Nous centralisons ici les décisions d'exclusion. La colonne `Outlier` récupère les anomalies statistiques de la Section 3, tandis que `ComplianceStatus` traite les défauts administratifs. Cette purge sécurise l'échantillon avant les phases d'apprentissage. | Vérifier que la colonne `Outlier` est vide et que `ComplianceStatus` est 100% conforme sur le dataset filtré. |
-| 17 | SecondLargest... | Créer le flag `IsMixedUse` (1 si renseigné, 0 sinon) puis supprimer les colonnes sources | La présence d'un usage secondaire est un marqueur de complexité structurelle. Transformer cette donnée lacunaire en indicateur binaire permet de conserver le signal métier sans subir le poids des valeurs manquantes. | Vérifier la création du flag et la suppression des colonnes de surfaces secondaires. |
-| 18 | ENERGYSTARScore | Créer le flag `Has_EnergyStarScore` avant toute opération d'imputation | L'absence de score n'est pas aléatoire (MAR). Le flag permet au modèle de détecter si l'absence d'information est corrélée à une performance énergétique spécifique, avant que la valeur ne soit complétée. | Confirmation que le flag binaire précède l'étape d'imputation. |
-| 19 | Variables Numériques | Imputer en cascade : Médiane par `PrimaryPropertyType`, puis Médiane Globale | La cascade garantit la complétude du dataset. On privilégie la médiane du groupe d'usage pour respecter la morphologie du bâti, avec un repli sur la médiane globale pour les catégories sous-représentées. | Absence totale de NaN sur les variables numériques cibles. |
-| 20 | NumberofFloors | Imputer en cascade (Usage > Global) avec arrondi à l'entier | Les étages sont une variable structurelle clé. L'imputation en cascade fiabilise cette donnée tout en assurant une cohérence physique (pas de demi-étage) via l'arrondi. | Validation des valeurs entières et de la cohérence avec les types de bâtiments. |
-| 21 | Colonnes lacunaires | Supprimer définitivement les variables avec un taux de vide prohibitif (ex: Comments, 3rd Use) | L'élimination des colonnes trop creuses permet de réduire la dimensionnalité inutile et de se concentrer sur les variables ayant un fort pouvoir prédictif. | Liste des colonnes supprimées documentée dans l'audit. |
-| 22 | Lignes vides (> 30%) | Exclusion finale des observations présentant un taux de vacuité résiduel supérieur au seuil critique | Ce filtre de sécurité rejette les bâtiments dont le profil reste trop incomplet malgré les imputations, évitant ainsi d'injecter du bruit dans le modèle de prédiction. | Contrôle du taux de remplissage final par ligne. |
+| **16** | **Outlier** et **ComplianceStatus** | Suppression des lignes marquées ou non conformes. | Centralisation des exclusions : purge des anomalies statistiques détectées en Section 3 et des défauts administratifs (non-conformité). | `exclusion_reason` documenté ; 100% de conformité administrative. |
+| **17** | **IsMixedUse** | Création du flag binaire via `SecondLargestPropertyUseType`. | Capture la complexité structurelle. On transforme une donnée textuelle lacunaire en un signal binaire robuste pour le modèle. | Suppression des colonnes sources d'usage secondaire après création. |
+| **18** | **Has_EnergyStarScore** | Création du flag de présence avant toute imputation. | L'absence de score (MNAR) est une information en soi. Le flag permet de conserver ce signal avant que la valeur numérique ne soit complétée par la médiane. | Flag présent pour 100% des lignes ; distinction entre score réel et imputé. |
+| **19** | **LargestPropertyUseType** | Réparation par `PrimaryPropertyType` ou étiquette "Unknown". | Étape critique : garantit que chaque bâtiment possède une catégorie pour permettre l'imputation groupée (Étape 20). Traite les cas limites (ex: 4 bâtiments). | Zéro `NaN` sur la colonne pivot d'usage avant l'imputation numérique. |
+| **20** | **Variables Numériques** | Imputation en cascade : Médiane par Usage > Médiane Globale. | Respecte la morphologie du bâti (un hôtel consomme différemment d'un entrepôt). La cascade assure la complétude sans perte de précision. | `missing_before` vs `after` cohérent dans l'audit ; absence totale de `NaN`. |
+| **21** | **NumberofFloors** | Imputation en cascade avec arrondi à l'entier (`.round().astype(int)`). | Assure la cohérence physique des bâtiments : le modèle ne doit pas traiter de "demi-étages" issus d'un calcul de médiane. | Valeurs entières strictes sur l'ensemble de la colonne. |
+| **22** | **Lignes vides (> 30%)** | Suppression des observations au taux de vacuité résiduel critique. | Filtre de sécurité final : rejette les bâtiments dont le profil reste trop incertain malgré les tentatives d'imputation, limitant le bruit. | Taux de remplissage final vérifié ; motif "Excessive Missing Data" en audit. |
+| **23** | **Colonnes obsolètes** | Drop définitif (ex: ID, Comments, 3rd Use, Outlier). | Réduction de la dimensionnalité. On élimine les variables "bruit" ou administratives pour ne conserver que les prédicteurs et la cible. | Le schéma final correspond exactement à la configuration YAML. |

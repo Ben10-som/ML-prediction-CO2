@@ -278,5 +278,5 @@ def save_feature_engineering_output(df: pd.DataFrame, output_dir: Path, filename
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(meta_payload, f, indent=4, ensure_ascii=False)
     
-    print(f"✓ Feature engineering sauvegardé dans : {output_path}")
+    print(f" Feature engineering sauvegardé dans : {output_path}")
     return output_path

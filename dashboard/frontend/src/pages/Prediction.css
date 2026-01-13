@@ -1,74 +1,275 @@
-.prediction-page form {
-    max-width: 600px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Prediction Page Premium Styles */
+
+.prediction-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.prediction-header {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.prediction-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.prediction-header p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+/* Layout Grid */
+.prediction-content {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    /* Form is wider */
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .prediction-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Form Card */
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 25px 0 15px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.form-section-title:first-child {
+    margin-top: 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .form-group {
-    margin-bottom: 15px;
-}
-
-.prediction-page label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.prediction-page input,
-.prediction-page select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-.checkbox-group {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Input with Icon Wrapper */
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-wrapper svg {
+    position: absolute;
+    left: 12px;
+    color: #94a3b8;
+    z-index: 10;
+}
+
+.input-icon-wrapper input,
+.input-icon-wrapper select {
+    padding-left: 42px;
+    /* Space for icon */
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background: white;
+    text-align: center;
+    /* CENTERED TEXT */
+}
+
+input:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    outline: none;
+}
+
+/* Checkboxes as Pills */
+.checkbox-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #f8fafc;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+.checkbox-label input {
+    display: none;
+    /* Hide default checkbox */
+}
+
+.checkbox-label.checked {
+    background: #f5f3ff;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.icon-flame {
+    color: #f59e0b;
+}
+
+/* Buttons */
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn-predict {
+    flex: 1;
+    background: var(--primary-color);
+    color: white;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: hover 0.2s;
+}
+
+.btn-predict:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-predict:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-reset {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.btn-reset:hover {
+    background: #f8fafc;
+    color: var(--danger-color);
+}
+
+
+/* RESULT CARD */
+.result-card-container {
+    position: sticky;
+    top: 30px;
+}
+
+.result-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    min-height: 300px;
+    justify-content: center;
+}
+
+.result-card.success {
+    border-top: 6px solid var(--success-color);
+}
+
+.result-card.error {
+    border-top: 6px solid var(--danger-color);
+}
+
+.result-header h3 {
+    margin: 10px 0 0 0;
+    color: var(--text-primary);
+}
+
+.result-value {
     margin: 20px 0;
 }
 
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    font-weight: normal;
-    cursor: pointer;
+.result-value .number {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
 }
 
-.checkbox-group input {
-    width: auto;
-    margin-right: 8px;
+.result-value .unit {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
-.prediction-page button {
-    width: 100%;
-    background-color: #1e90ff;
-    color: white;
-    padding: 12px;
-    border-radius: 6px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 16px;
+.result-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
-.prediction-page button:hover {
-    background-color: #0077cc;
-}
-
-.result {
-    margin-top: 30px;
-    text-align: center;
-    color: #2c3e50;
-    font-size: 1.2em;
-    padding: 15px;
-    background: #e6f7ff;
-    border-radius: 8px;
-    border-left: 5px solid #1e90ff;
+.result-card.placeholder p {
+    color: #94a3b8;
+    font-size: 1rem;
+    max-width: 250px;
 }

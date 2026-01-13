@@ -1,0 +1,14 @@
+name: "XGBoost"
+params:
+  _target_: xgboost.XGBRegressor
+  n_estimators: 100
+  learning_rate: 0.1
+  max_depth: 6
+  random_state: 42
+
+scaler: "robust"
+
+search_space:
+  n_estimators: [100, 300]
+  learning_rate: [0.01, 0.1]
+  max_depth: [4, 6, 8]

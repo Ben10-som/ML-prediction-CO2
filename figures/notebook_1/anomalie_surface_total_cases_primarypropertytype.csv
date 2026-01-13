@@ -1,0 +1,214 @@
+OSEBuildingID,PropertyName,BuildingType,PrimaryPropertyType,LargestPropertyUseType,LargestPropertyUseTypeGFA,PropertyGFATotal,Ratio,PropertyGFABuilding(s),PropertyGFAParking,NumberofBuildings,NumberofFloors,YearBuilt,Neighborhood,ComplianceStatus
+16,5679-W Seattle,NonResidential,Hotel,Hotel,336640.0,333176,1.0103969073402645,272015,61161,1.0,25,1998,DOWNTOWN,Compliant
+28,Graham Hill Elementary,SPS-District K-12,K-12 School,K-12 School,58916.0,56228,1.047805363875649,56228,0,1.0,2,1961,SOUTHEAST,Error - Correct Default Data
+36,Jane Addams Middle,SPS-District K-12,K-12 School,K-12 School,164229.0,160645,1.0223100625603039,160645,0,1.0,2,1949,NORTH,Error - Correct Default Data
+37,John Hay Elementary,SPS-District K-12,K-12 School,K-12 School,55166.0,51582,1.069481602109263,51582,0,1.0,2,1989,MAGNOLIA / QUEEN ANNE,Missing Data
+43,Plant 2 Site,Campus,Mixed Use Property,Office,757027.0,494835,1.5298574272232157,494835,0,1.0,3,1992,GREATER DUWAMISH,Compliant
+51,Eckstein Middle,SPS-District K-12,K-12 School,K-12 School,182861.0,175565,1.041557257995614,175565,0,1.0,2,1950,NORTHEAST,Error - Correct Default Data
+56,Seattle Hilton Hotel,NonResidential,Hotel,Hotel,348630.0,332210,1.049426567532585,126240,205970,1.0,24,1969,DOWNTOWN,Compliant
+84,PSSA - The Mount,NonResidential,Senior Care Community,Senior Care Community,296313.0,217603,1.3617137631374567,217603,0,1.0,5,1922,SOUTHWEST,Compliant
+87,Arbor Heights Elementary,SPS-District K-12,K-12 School,K-12 School,65568.0,53352,1.228969860548808,53352,0,1.0,2,1948,SOUTHWEST,Missing Data
+98,Firestone Store#012432,NonResidential,Retail Store,Retail Store,72072.0,58320,1.2358024691358025,58320,0,1.0,2,1929,LAKE UNION,Compliant
+107,City Place IV - SEDO,NonResidential,Large Office,Office,598801.0,571329,1.048084378702989,571329,0,1.0,12,2010,LAKE UNION,Compliant
+111,Mercer Arena,Nonresidential COS,Other,Other,108000.0,60696,1.7793594306049823,60696,0,1.0,1,1928,MAGNOLIA / QUEEN ANNE,Compliant
+112,McCaw Hall,Nonresidential COS,Other,Other,296000.0,262048,1.129564049334473,262048,0,1.0,2,1928,MAGNOLIA / QUEEN ANNE,Compliant
+118,Pathfinder K-8,SPS-District K-12,K-12 School,K-12 School,75364.0,74468,1.012032013750873,74468,0,1.0,3,1999,DELRIDGE,Missing Data
+122,John Muir Elementary,SPS-District K-12,K-12 School,K-12 School,60725.0,58933,1.0304074118066278,58933,0,1.0,2,1991,SOUTHEAST,Missing Data
+125,Mercer International Middle,SPS-District K-12,K-12 School,K-12 School,134446.0,130862,1.027387629716801,130862,0,1.0,1,1957,GREATER DUWAMISH,Error - Correct Default Data
+137,Broadview-Thomson K-8,SPS-District K-12,K-12 School,K-12 School,131909.0,131013,1.0068390159755138,131013,0,1.0,2,1963,NORTHWEST,Error - Correct Default Data
+139,7066-Seattle-Northgate,NonResidential,Hotel,Hotel,70609.0,69138,1.0212762880037027,69138,0,1.0,3,2002,NORTHWEST,Compliant
+147,Swedish Ballard,NonResidential,Hospital,Hospital (General Medical & Surgical),302661.0,285333,1.0607290429077605,285333,0,4.0,5,1954,BALLARD,Compliant
+148,West Woodland Elementary,SPS-District K-12,K-12 School,K-12 School,59097.0,55513,1.0645614540738206,55513,0,1.0,2,1991,Ballard,Error - Correct Default Data
+170,SCCC FINE ARTS BUILDING,NonResidential,University,College/University,64820.0,63330,1.0235275540817939,63330,0,1.0,3,1915,EAST,Compliant
+172,SSCC MAIN CAMPUS,Campus,University,College/University,483000.0,441071,1.095061792772592,441071,0,27.0,2,1970,DELRIDGE,Compliant
+174,CSC Vehicle Maintenance (E),Nonresidential COS,Other,"Repair Services (Vehicle, Shoe, Locksmith, etc)",68359.0,67356,1.014891026783063,67356,0,1.0,1,1950,GREATER DUWAMISH,Compliant
+185,Nathan Hale High,SPS-District K-12,K-12 School,K-12 School,238550.0,236758,1.0075689100262715,236758,0,1.0,2,2011,NORTH,Compliant
+209,Madison Self Storage,NonResidential,Self-Storage Facility,Self-Storage Facility,85521.0,84870,1.0076705549664193,84870,0,1.0,5,1910,EAST,Compliant
+223,Westwood Village - Building A,NonResidential,Retail Store,Retail Store,65425.0,64984,1.0067862858549796,64984,0,1.0,1,1966,DELRIDGE,Compliant
+224,Westwood Village - Building B,NonResidential,Retail Store,Retail Store,67782.0,67745,1.0005461657686914,67745,0,1.0,1,1965,DELRIDGE,Compliant
+239,Gatewood Elementary,SPS-District K-12,K-12 School,K-12 School,59014.0,58118,1.0154169104236208,58118,0,1.0,3,1991,SOUTHWEST,Error - Correct Default Data
+242,Olympic View Elementary,SPS-District K-12,K-12 School,K-12 School,55480.0,52792,1.0509168055766025,52792,0,1.0,2,1989,NORTH,Missing Data
+268,Swedish Cherry Hill,NonResidential,Hospital,Hospital (General Medical & Surgical),601615.0,597519,1.0068550121418733,597519,0,6.0,5,1990,CENTRAL,Compliant
+276,Harborview Medical Center,NonResidential,Hospital,Hospital (General Medical & Surgical),1350182.0,1158691,1.1652649412138352,1158691,0,9.0,8,2000,EAST,Compliant
+291,Thurgood Marshall Elementary,SPS-District K-12,K-12 School,K-12 School,65310.0,64414,1.013910019560965,64414,0,1.0,2,1991,CENTRAL,Error - Correct Default Data
+302,Seattle ReadCntr (50/50),NonResidential,Other,Other,77810.0,76086,1.0226585705648872,76086,0,1.0,1,1973,MAGNOLIA / QUEEN ANNE,Compliant
+315,P66 Bell Harbor International Conference Center & Cruise Terminal.,Campus,Other,Other,217088.0,215476,1.007481111585513,215476,0,4.0,3,1995,DOWNTOWN,Compliant
+316,337v2-Seattle Waterfront Marriott,NonResidential,Hotel,Hotel,277000.0,254273,1.0893803117122147,215473,38800,1.0,8,2003,DOWNTOWN,Compliant
+326,Westlake Tower,NonResidential,Large Office,Office,383942.0,369996,1.0376922993762094,369996,0,1.0,25,1989,DOWNTOWN,Compliant
+381,70500872 -- Holman Road,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,61666.0,60880,1.012910643889619,60880,0,1.0,1,1956,NORTHWEST,Compliant
+382,Collins Building,NonResidential,Small- and Mid-Sized Office,Office,50328.0,50176,1.0030293367346939,50176,0,1.0,5,1900,DOWNTOWN,Compliant
+388,Rainier Tower,NonResidential,Large Office,Office,718473.0,635824,1.1299872291703363,635824,0,1.0,42,1976,DOWNTOWN,Compliant
+401,WAC aggregate,NonResidential,Hotel,Hotel,310000.0,305548,1.0145705421079503,305548,0,1.0,21,1930,DOWNTOWN,Compliant
+403,Logan Building,NonResidential,Large Office,Office,144570.0,135918,1.0636560278991745,135918,0,1.0,10,1958,DOWNTOWN,Compliant
+447,NWCP-SEA Sylv Bldg,NonResidential,Warehouse,Non-Refrigerated Warehouse,106001.0,106000,1.000009433962264,106000,0,1.0,1,1963,GREATER DUWAMISH,Compliant
+487,UW Medicine Research Phase I,NonResidential,Laboratory,Laboratory,103135.0,102235,1.0088032474201594,102235,0,1.0,4,1963,LAKE UNION,Compliant
+507,Skyline-East Marginal,NonResidential,Warehouse,Non-Refrigerated Warehouse,325424.0,243044,1.3389509718404897,243044,0,1.0,1,1999,GREATER DUWAMISH,Compliant
+513,Q13 FOX,NonResidential,Other,Other,72000.0,66462,1.0833258102374288,53464,12998,1.0,3,1952,MAGNOLIA / QUEEN ANNE,Compliant
+516,Aurora Shopping Center,NonResidential,Other,Strip Mall,124231.0,111900,1.1101966041108133,111900,0,6.0,1,1964,NORTHWEST,Compliant
+539,University Center,NonResidential,Retail Store,Retail Store,69800.0,69492,1.0044321648535084,69492,0,1.0,2,1987,NORTHEAST,Non-Compliant
+552,South Seattle Distribution Center- 3800,NonResidential,Distribution Center,Distribution Center,162425.0,161678,1.0046202946597558,161678,0,1.0,1,1968,GREATER DUWAMISH,Compliant
+554,South Seattle Distribution Center- 3601,NonResidential,Distribution Center,Distribution Center,59504.0,52613,1.1309752342576929,52613,0,1.0,1,1980,GREATER DUWAMISH,Compliant
+586,"SEATTLE, WA-0106",NonResidential,Retail Store,Retail Store,173106.0,168619,1.0266102870969465,168619,0,1.0,2,1965,NORTH,Compliant
+599,Uwajimaya (Seattle 5),NonResidential,Refrigerated Warehouse,Refrigerated Warehouse,76486.0,76354,1.0017287895853524,76354,0,1.0,1,1971,GREATER DUWAMISH,Compliant
+608,411 1ST AVE  S (ID608),NonResidential,Large Office,Office,193154.0,154159,1.252953119830824,154159,0,5.0,7,1913,DOWNTOWN,Non-Compliant
+624,South Occidental Warehouse,NonResidential,Other,Manufacturing/Industrial Plant,142901.0,125519,1.1384810267768226,125519,0,2.0,2,1941,GREATER DUWAMISH,Compliant
+654,AIRPORT WAY SOUTH,NonResidential,Retail Store,Retail Store,56576.0,56572,1.0000707063565015,56572,0,1.0,1,1973,GREATER DUWAMISH,Compliant
+671,Jefferson Tower,NonResidential,Medical Office,Medical Office,113739.0,94500,1.2035873015873015,94500,0,1.0,7,1987,CENTRAL,Compliant
+673,#8944 West Seattle,NonResidential,Retail Store,Retail Store,109758.0,94713,1.1588483101580564,94713,0,0.0,1,2005,DELRIDGE,Compliant
+683,Rainier Square Plaza,NonResidential,Other,Strip Mall,107427.0,102133,1.0518343728275876,102133,0,3.0,1,1994,SOUTHEAST,Compliant
+689,Marketplace at Queen Anne,NonResidential,Other,Lifestyle Center,81385.0,81336,1.0006024392642865,81336,0,3.0,2,1994,MAGNOLIA / QUEEN ANNE,Compliant
+722,(ID722)INDUSTRIAL TRANSFER WAREHOUSE,NonResidential,Warehouse,Non-Refrigerated Warehouse,129420.0,98220,1.3176542455711668,98220,0,1.0,3,1951,GREATER DUWAMISH,Compliant
+730,(ID#730)Campus 4:KC Metro Transit Ryerson Base,NonResidential,Other,Other - Public Services,65700.0,63644,1.0323046948651875,63644,0,3.0,2,1986,GREATER DUWAMISH,Compliant
+732,70100122-Greenwood,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,168735.0,141890,1.189195855944746,106345,35545,1.0,1,1970,NORTHWEST,Compliant
+748,Pier 70,NonResidential,Small- and Mid-Sized Office,Office,90345.0,76893,1.1749444032616754,76893,0,1.0,3,1902,DOWNTOWN,Compliant
+760,Broadacres Building,NonResidential,Large Office,Office,138257.0,132998,1.039541947999218,132998,0,1.0,10,1908,DOWNTOWN,Compliant
+782,DOT 17G_01 1051 BUILDING,NonResidential,Other,Other,58500.0,58492,1.0001367708404567,58492,0,1.0,2,1939,GREATER DUWAMISH,Compliant
+784,SEWA,NonResidential,Warehouse,Non-Refrigerated Warehouse,77800.0,73296,1.0614494651822746,73296,0,1.0,1,1960,GREATER DUWAMISH,Compliant
+791,United Parcel Service,NonResidential,Other,Other,152511.0,141686,1.0764013381703204,141686,0,1.0,1,1970,GREATER DUWAMISH,Compliant
+792,McKinstry SEA - 5005 3rd Ave S Office,NonResidential,Small- and Mid-Sized Office,Office,101278.0,93610,1.0819143253925863,93610,0,1.0,1,1950,GREATER DUWAMISH,Compliant
+796,6100 Building,NonResidential,Large Office,Office,245240.0,238148,1.0297798007961436,238148,0,1.0,5,1975,GREATER DUWAMISH,Compliant
+799,Cloverdale Business Park Building D,NonResidential,Distribution Center,Distribution Center,55000.0,54880,1.0021865889212829,54880,0,1.0,1,1979,GREATER DUWAMISH,Compliant
+804,Northgate North,NonResidential,Other,Parking,321828.0,303255,1.061245486471781,283435,19820,1.0,5,2000,North,Compliant
+829,Northwest Work Lofts,NonResidential,Other,Other,215197.0,62600,3.4376517571884984,62600,0,3.0,4,1928,MAGNOLIA / QUEEN ANNE,Compliant
+848,#4706 Bitterlake,NonResidential,Retail Store,Retail Store,130767.0,101830,1.2841696945890209,101830,0,1.0,1,1995,NORTHWEST,Compliant
+866,Lafayette Elementary,SPS-District K-12,K-12 School,K-12 School,62975.0,61183,1.0292891816354217,61183,0,1.0,1,1950,SOUTHWEST,Error - Correct Default Data
+19462,Wedgwood Elementary,SPS-District K-12,K-12 School,K-12 School,50956.0,46732,1.0903877428742617,46732,0,1.0,1,1955,NORTHEAST,Error - Correct Default Data
+19654,1100 Olive Lab,NonResidential,Laboratory,Laboratory,69000.0,44588,1.547501569929129,22588,22000,1.0,2,1946,DOWNTOWN,Compliant
+19694,Mann Building (Nova High),SPS-District K-12,K-12 School,K-12 School,48887.0,37327,1.3096953947544672,37327,0,1.0,2,1925,CENTRAL,Error - Correct Default Data
+19697,North Substation,Nonresidential COS,Other,Other,25778.0,21462,1.2010996179293636,21462,0,1.0,2,1923,NORTH,Compliant
+19855,Lowman & Hanford Building,NonResidential,Small- and Mid-Sized Office,Office,26195.0,23622,1.1089238845144358,23622,0,1.0,7,1900,DOWNTOWN,Compliant
+19860,Marion 814,NonResidential,Small- and Mid-Sized Office,Office,29040.0,26840,1.0819672131147542,26840,0,1.0,5,1906,DOWNTOWN,Compliant
+19917,Fire Station 02,Nonresidential COS,Other,Fire Station,38939.0,37740,1.031770005299417,37740,0,1.0,2,1922,DOWNTOWN,Compliant
+19927,The Loyal Inn,NonResidential,Hotel,Hotel,52668.0,44416,1.1857889048991355,44416,0,1.0,4,1967,DOWNTOWN,Compliant
+20033,Lisa Li Building,NonResidential,Small- and Mid-Sized Office,Office,25021.0,20384,1.227482339089482,20384,0,1.0,2,1989,NORTHEAST,Compliant
+20066,University Travelodge,NonResidential,Hotel,Hotel,30910.0,24100,1.282572614107884,24100,0,2.0,2,1961,NORTHEAST,Compliant
+20182,St. Bridget Church,NonResidential,Worship Facility,Worship Facility,26386.0,26366,1.0007585526814837,26366,0,1.0,1,1972,NORTHEAST,Compliant
+20217,Sand Point Elementary,SPS-District K-12,K-12 School,K-12 School,41408.0,38624,1.072079536039768,38624,0,1.0,1,1958,NORTHEAST,Error - Correct Default Data
+20323,Chancery Place Apartments,NonResidential,Residence Hall,Residence Hall/Dormitory,150000.0,115775,1.295616497516735,84240,31535,0.0,15,1982,EAST,Compliant
+20325,University Prep Academy,Campus,K-12 School,K-12 School,96154.0,21500,4.472279069767442,21500,0,5.0,3,1989,NORTHEAST,Compliant
+20415,Holy Rosary School,NonResidential,K-12 School,K-12 School,57896.0,33462,1.730201422509115,33462,0,1.0,2,1922,SOUTHWEST,Compliant
+20439,West Seattle Family YMCA,NonResidential,Other,Fitness Center/Health Club/Gym,50000.0,33334,1.499970000599988,33334,0,1.0,1,1984,SOUTHWEST,Compliant
+20440,SK Food Group,NonResidential,Small- and Mid-Sized Office,Office,45000.0,43387,1.0371770345956162,43387,0,1.0,3,1981,SOUTHWEST,Compliant
+20500,Central Park,NonResidential,Warehouse,Non-Refrigerated Warehouse,61419.0,37500,1.63784,37500,0,1.0,1,1985,GREATER DUWAMISH,Compliant
+20532,Amy Yee Tennis Center,Nonresidential COS,Other,Other - Recreation,66597.0,36070,1.846326587191572,36070,0,0.0,1,1977,SOUTHEAST,Compliant
+20556,3300,NonResidential,Warehouse,Non-Refrigerated Warehouse,32700.0,32400,1.0092592592592593,32400,0,1.0,2,1955,GREATER DUWAMISH,Compliant
+20565,Safeway 0368 - Queen Anne,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,25883.0,25159,1.0287769784172662,25159,0,1.0,1,1962,MAGNOLIA / QUEEN ANNE,Compliant
+20604,MCNIVEN,NonResidential,Distribution Center,Distribution Center,33987.0,26680,1.2738755622188906,26680,0,1.0,1,1955,GREATER DUWAMISH,Compliant
+20686,Lake City Mini Storage,NonResidential,Self-Storage Facility,Self-Storage Facility,50369.0,50368,1.0000198538754765,50368,0,2.0,2,1988,NORTH,Compliant
+20735,St. Anne School,NonResidential,K-12 School,K-12 School,33550.0,32691,1.0262763451714538,32691,0,1.0,3,1922,MAGNOLIA / QUEEN ANNE,Compliant
+20743,St. Anne Church & Rectory,NonResidential,Worship Facility,Worship Facility,26210.0,24227,1.0818508275890535,24227,0,1.0,2,1963,MAGNOLIA / QUEEN ANNE,Compliant
+20885,Ballard Center,NonResidential,Senior Care Community,Senior Care Community,36000.0,34636,1.0393809908765446,3636,31000,1.0,2,1966,BALLARD,Compliant
+20916,St. John Egan Hall,NonResidential,Small- and Mid-Sized Office,Office,23100.0,20678,1.1171293161814488,20678,0,1.0,1,1960,NORTHWEST,Compliant
+20917,St. John School,NonResidential,K-12 School,K-12 School,33780.0,28820,1.1721027064538514,28820,0,1.0,3,1922,NORTHWEST,Compliant
+20928,St. Paul Church & School,NonResidential,Worship Facility,Worship Facility,44816.0,27876,1.607691203902999,27876,0,1.0,2,1954,SOUTHEAST,Compliant
+20989,Building N,NonResidential,Warehouse,Non-Refrigerated Warehouse,21386.0,20500,1.043219512195122,20500,0,1.0,1,1969,GREATER DUWAMISH,Compliant
+21102,"SWIFTY PRINTING & DIGITAL IMAGING, INC.",NonResidential,Retail Store,Retail Store,38880.0,25920,1.5,25920,0,1.0,2,1919,DOWNTOWN,Compliant
+21145,Fremont West Building,NonResidential,Small- and Mid-Sized Office,Office,36839.0,35600,1.034803370786517,35600,0,1.0,2,1986,LAKE UNION,Compliant
+21192,Alaska Marine Lines,NonResidential,Distribution Center,Distribution Center,35300.0,28368,1.2443598420755781,28368,0,2.0,2,1971,DELRIDGE,Compliant
+21208,Stone Avenue Building,NonResidential,Other,Other,92129.0,92080,1.0005321459600347,92080,0,1.0,2,1964,NORTHWEST,Compliant
+21239,Seattle North,NonResidential,Worship Facility,Worship Facility,30044.0,26033,1.1540736757192793,26033,0,1.0,1,1949,NORTHEAST,Compliant
+21243,"Seattle Country Day School Bldgs 1,2 & 4",NonResidential,K-12 School,K-12 School,49468.0,48660,1.0166050143855323,48660,0,1.0,4,2007,MAGNOLIA / QUEEN ANNE,Compliant
+21328,Seattle First Hill,NonResidential,Other,Other/Specialty Hospital,52284.0,49243,1.0617549702495785,49243,0,1.0,4,1964,EAST,Compliant
+21365,Northwest Kidney Center (21365),NonResidential,Medical Office,Medical Office,50000.0,39115,1.278281989006775,39115,0,0.0,3,1963,EAST,Compliant
+21367,First Presbyterian Church of Seattle,NonResidential,Worship Facility,Worship Facility,53000.0,37796,1.4022647899248597,37796,0,1.0,3,1962,EAST,Compliant
+21418,Northwest Rooms,Nonresidential COS,Other,Other,49847.0,26000,1.9171923076923076,26000,0,1.0,1,1961,MAGNOLIA / QUEEN ANNE,Compliant
+21435,space needle,NonResidential,Other,Other - Recreation,50000.0,33971,1.4718436313326073,33971,0,1.0,2,1961,MAGNOLIA / QUEEN ANNE,Compliant
+21505,U0010 - Union Stables,NonResidential,Small- and Mid-Sized Office,Office,68048.0,66900,1.0171599402092675,66900,0,1.0,5,1909,DOWNTOWN,Compliant
+21520,1910 Fairview - new,NonResidential,Small- and Mid-Sized Office,Office,57972.0,54465,1.0643899752134398,44860,9605,1.0,5,1964,LAKE UNION,Compliant
+21534,Little Wing,NonResidential,Small- and Mid-Sized Office,Office,54150.0,51552,1.0503957169459963,51552,0,1.0,3,2013,LAKE UNION,Compliant
+21557,Lakeside Middle School,NonResidential,K-12 School,K-12 School,61099.0,49252,1.2405384552911556,49252,0,1.0,2,1999,NORTHWEST,Compliant
+21570,Hazel Wolf K-8 at Pinehurst,SPS-District K-12,K-12 School,K-12 School,50337.0,34005,1.4802823114247905,34005,0,1.0,1,1950,North,Error - Correct Default Data
+21578,Genesee Hill Elementary,SPS-District K-12,K-12 School,K-12 School,60814.0,41221,1.4753159797190751,41221,0,1.0,1,1949,SOUTHWEST,Error - Correct Default Data
+21616,Olympic Hills Elementary,SPS-District K-12,K-12 School,K-12 School,43188.0,42292,1.021186039912986,42292,0,1.0,1,1954,NORTH,Error - Correct Default Data
+21741,Mirabella Seattle,NonResidential,Senior Care Community,Senior Care Community,726000.0,724148,1.0025574882482586,724148,0,1.0,14,2006,LAKE UNION,Compliant
+21883,Shoreline,NonResidential,Worship Facility,Worship Facility,22898.0,22047,1.0385993559214406,22047,0,1.0,1,1962,NORTHWEST,Compliant
+21896,PNP Properties Building,NonResidential,Warehouse,Non-Refrigerated Warehouse,30000.0,28920,1.037344398340249,28920,0,1.0,1,1981,GREATER DUWAMISH,Compliant
+21909,311 NGT Northgate Med,NonResidential,Medical Office,Medical Office,65069.0,38745,1.6794166989288941,38745,0,1.0,2,1968,NORTH,Compliant
+21921,Safeway 0488 - 45th St,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,34982.0,33005,1.0599000151492197,33005,0,1.0,1,1975,NORTHEAST,Compliant
+21945,First Hill Plaza Retail Building,NonResidential,Other,Parking,23483.0,20971,1.1197844642601689,20971,0,1.0,1,1981,EAST,Compliant
+22149,John Rogers Elementary,SPS-District K-12,K-12 School,K-12 School,40374.0,38582,1.046446529469701,38582,0,1.0,1,1955,NORTH,Error - Correct Default Data
+22420,SUNSET,NonResidential,Other,Other,30554.0,30087,1.0155216538704424,30087,0,1.0,2,1942,BALLARD,Compliant
+22454,Ballard Goodwill,NonResidential,Retail Store,Retail Store,23067.0,22420,1.0288581623550401,22420,0,1.0,1,1967,Ballard,Compliant
+22479,70500811 -- Interbay,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,25987.0,25842,1.005611020818822,25842,0,1.0,1,1961,MAGNOLIA / QUEEN ANNE,Compliant
+22574,Nickerson Business Center,NonResidential,Small- and Mid-Sized Office,Office,20784.0,20022,1.0380581360503447,20022,0,1.0,2,1961,MAGNOLIA / QUEEN ANNE,Compliant
+22801,Meadowbrook Community Center/Pool,Nonresidential COS,Other,Other - Recreation,31991.0,29258,1.0934103493061726,29258,0,0.0,2,1996,NORTH,Compliant
+22834,University Child Development School,NonResidential,K-12 School,K-12 School,51515.0,31343,1.643588680088058,31343,0,3.0,2,2004,NORTHEAST,Compliant
+22936,Seattle Asian Art Museum,Nonresidential COS,Other,Other - Entertainment/Public Assembly,53776.0,33087,1.6252908997491462,33087,0,1.0,1,1932,EAST,Compliant
+23065,Meridian Center for Health,NonResidential,Medical Office,Medical Office,44667.0,34759,1.2850484766535286,34759,0,1.0,2,1979,NORTHWEST,Compliant
+23071,Main Hospital - All Wings,NonResidential,Hospital,Hospital (General Medical & Surgical),483520.0,415632,1.1633367979366362,415632,0,8.0,1,1966,NORTHWEST,Compliant
+23076,North Seattle Alliance Church,NonResidential,Worship Facility,Worship Facility,45909.0,44719,1.026610612938572,44719,0,1.0,2,1965,NORTHWEST,Compliant
+23115,Intermountain Supply,NonResidential,Distribution Center,Distribution Center,43050.0,42900,1.0034965034965035,42900,0,1.0,1,1979,DELRIDGE,Compliant
+23204,Maple Elementary,SPS-District K-12,K-12 School,K-12 School,53234.0,50546,1.0531792822379615,50546,0,1.0,1,1971,GREATER DUWAMISH,Error - Correct Default Data
+23265,T102 1011 B/C,Campus,Other,Other,139557.0,138907,1.004679389807569,138907,0,5.0,2,1989,GREATER DUWAMISH,Compliant
+23297,St. James Cathedral & Rectory,NonResidential,Residence Hall,Residence Hall/Dormitory,44091.0,44086,1.0001134146894706,44086,0,1.0,1,1904,EAST,Compliant
+23722,North Beach Elementary,SPS-District K-12,K-12 School,K-12 School,40867.0,39971,1.0224162517825424,39971,0,1.0,1,1958,BALLARD,Missing Data
+23861,Commuter Center LLC,NonResidential,Small- and Mid-Sized Office,Office,35693.0,32160,1.1098569651741295,32160,0,1.0,3,1906,DOWNTOWN,Compliant
+24026,U-Haul Moving & Storage of SE Seattle,NonResidential,Self-Storage Facility,Self-Storage Facility,23250.0,23100,1.0064935064935066,23100,0,1.0,1,1955,GREATER DUWAMISH,Compliant
+24091,"Total Reclaim, Inc",NonResidential,Warehouse,Non-Refrigerated Warehouse,49802.0,45842,1.0863836656341346,45842,0,1.0,1,1960,GREATER DUWAMISH,Compliant
+24105,625 Building,NonResidential,Warehouse,Non-Refrigerated Warehouse,25649.0,24990,1.0263705482192877,24990,0,1.0,1,1953,GREATER DUWAMISH,Compliant
+24225,2900,NonResidential,Distribution Center,Distribution Center,41430.0,41248,1.0044123351435221,41248,0,1.0,1,1937,GREATER DUWAMISH,Compliant
+24479,Safeway 0423 - 35th Ave,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,35042.0,32822,1.0676375601730546,32822,0,1.0,1,1965,NORTHEAST,Compliant
+24482,View Ridge Elementary,SPS-District K-12,K-12 School,K-12 School,65210.0,64314,1.0139316478527225,64314,0,1.0,1,1948,NORTHEAST,Error - Correct Default Data
+24531,Kenyon Industrial Park Building D,NonResidential,Warehouse,Non-Refrigerated Warehouse,32040.0,32000,1.00125,32000,0,1.0,1,1966,GREATER DUWAMISH,Compliant
+24532,Kenyon Industrial Park Building B,NonResidential,Warehouse,Non-Refrigerated Warehouse,45449.0,44000,1.0329318181818181,44000,0,1.0,1,1970,GREATER DUWAMISH,Compliant
+24539,Cloverdale Business Park Building E,NonResidential,Warehouse,Non-Refrigerated Warehouse,27850.0,27420,1.0156819839533187,27420,0,1.0,1,1979,GREATER DUWAMISH,Compliant
+24603,20731-West Seattle / Delridge Way SW,NonResidential,Warehouse,Non-Refrigerated Warehouse,43556.0,36600,1.1900546448087432,36600,0,1.0,2,1982,DELRIDGE,Compliant
+24614,Sacajawea Elementary,SPS-District K-12,K-12 School,K-12 School,40285.0,36701,1.097654014876979,36701,0,1.0,1,1959,NORTH,Error - Correct Default Data
+24636,Westwood Village - Building E,NonResidential,Retail Store,Retail Store,40793.0,40265,1.0131131255432757,40265,0,1.0,1,1990,DELRIDGE,Compliant
+24640,Westwood Village - Building F,NonResidential,Retail Store,Retail Store,32427.0,26208,1.237293956043956,26208,0,1.0,1,2005,DELRIDGE,Compliant
+24646,Southwest Teen Life Center and Pool,Nonresidential COS,Other,Other - Recreation,29064.0,27227,1.0674697910162707,27227,0,0.0,2,1975,DELRIDGE,Compliant
+24862,Our Lady of Guadalupe School,NonResidential,K-12 School,K-12 School,31375.0,29874,1.0502443596438376,29874,0,1.0,3,1962,DELRIDGE,Compliant
+24868,Magnolia,NonResidential,Worship Facility,Worship Facility,22000.0,20140,1.0923535253227408,20140,0,1.0,1,1965,MAGNOLIA / QUEEN ANNE,Compliant
+24955,3420/3430 E. Marginal Way Whse,NonResidential,Distribution Center,Distribution Center,65164.0,16300,3.997791411042945,16300,0,1.0,1,1952,GREATER DUWAMISH,Compliant
+25276,Pedersens Rentals,NonResidential,Warehouse,Non-Refrigerated Warehouse,33000.0,31569,1.0453292787227977,31569,0,1.0,1,1962,GREATER DUWAMISH,Compliant
+25361,Decatur Building,SPS-District K-12,K-12 School,K-12 School,45370.0,43578,1.0411216668961403,43578,0,1.0,1,1961,NORTHEAST,Error - Correct Default Data
+25371,Epiphany School,NonResidential,K-12 School,K-12 School,31100.0,28500,1.0912280701754387,28500,0,4.0,2,2009,CENTRAL,Compliant
+25673,The Ford Building,NonResidential,Retail Store,Retail Store,32205.0,30240,1.0649801587301588,30240,0,1.0,1,1920,EAST,Compliant
+25772,Park West Skilled Nursing,NonResidential,Hospital,Hospital (General Medical & Surgical),109726.0,54863,2.0,54863,0,0.0,3,1961,SOUTHWEST,Compliant
+25844,Washington machine Works,NonResidential,Other,Manufacturing/Industrial Plant,23000.0,22622,1.0167093979312174,22622,0,1.0,1,1927,GREATER DUWAMISH,Compliant
+26040,Stor-More Self Storage,NonResidential,Self-Storage Facility,Self-Storage Facility,66720.0,66610,1.0016514036931392,66610,0,1.0,3,1994,DELRIDGE,Compliant
+26183,Supply Laundry Building,NonResidential,Small- and Mid-Sized Office,Office,32610.0,27788,1.173528141643875,27788,0,1.0,2,1912,LAKE UNION,Compliant
+26236,4130 1st Ave,NonResidential,Other,Other - Entertainment/Public Assembly,32000.0,31360,1.0204081632653061,31360,0,1.0,2,1946,GREATER DUWAMISH,Compliant
+26289,Columbia Lutheran Home,NonResidential,Senior Care Community,Senior Care Community,56000.0,55974,1.0004645013756386,55974,0,1.0,2,1961,Northwest,Compliant
+26473,70500869 -- Wallingford,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,31174.0,28808,1.082129963898917,28808,0,1.0,1,1957,LAKE UNION,Compliant
+26670,Calvary Christian Assembly,NonResidential,Worship Facility,Worship Facility,63922.0,46485,1.3751102506184791,46485,0,1.0,3,1950,NORTHEAST,Compliant
+26710,Masin Building 1,NonResidential,Small- and Mid-Sized Office,Office,44000.0,36879,1.1930909189511647,36879,0,1.0,5,1905,DOWNTOWN,Compliant
+26731,Dearborn Bldg.,NonResidential,Small- and Mid-Sized Office,Office,30800.0,26510,1.161825726141079,26510,0,1.0,2,1970,DOWNTOWN,Compliant
+26808,Green Lake Elementary,SPS-District K-12,K-12 School,K-12 School,48799.0,42239,1.1553067070716636,42239,0,1.0,1,1970,NORTHWEST,Error - Correct Default Data
+26933,Langston Hughes Performing Arts Center,Nonresidential COS,Other,Performing Arts,24600.0,20992,1.171875,20992,0,1.0,3,1913,CENTRAL,Compliant
+27008,Laurelhurst Elementary,SPS-District K-12,K-12 School,K-12 School,57247.0,54943,1.0419343683453761,54943,0,1.0,2,1928,NORTHEAST,Error - Correct Default Data
+27080,Japanese Presbyterian Church,NonResidential,Worship Facility,Worship Facility,22962.0,22952,1.0004356918787034,22952,0,1.0,2,1963,SOUTHEAST,Compliant
+27122,Cedar Heights,NonResidential,Warehouse,Non-Refrigerated Warehouse,30000.0,28032,1.0702054794520548,28032,0,1.0,2,1951,GREATER DUWAMISH,Compliant
+27231,Loyal Heights Elementary,SPS-District K-12,K-12 School,K-12 School,46545.0,44753,1.0400420083569817,44753,0,1.0,2,1932,BALLARD,Error - Correct Default Data
+27303,EMERSON,NonResidential,Other,Other,47661.0,47237,1.0089760145648539,47237,0,1.0,2,1948,North,Compliant
+27365,Adams Elementary,SPS-District K-12,K-12 School,K-12 School,60882.0,57298,1.0625501762714231,57298,0,1.0,2,1989,BALLARD,Error - Correct Default Data
+27821,70500866 -- Northgate,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,46978.0,44755,1.0496704278851525,44755,0,1.0,1,1996,North,Compliant
+27891,University VW,NonResidential,Other,Other - Services,32580.0,21600,1.5083333333333333,21600,0,1.0,2,1924,NORTHEAST,Compliant
+27922,Seattle Temple,NonResidential,K-12 School,K-12 School,44340.0,36825,1.2040733197556008,36825,0,1.0,2,1951,CENTRAL,Compliant
+27928,Jewish Family Service,NonResidential,Small- and Mid-Sized Office,Office,31822.0,25834,1.2317875667724705,25834,0,1.0,3,1958,EAST,Compliant
+27947,ST MARKS CATHEDRAL,NonResidential,Worship Facility,Worship Facility,52225.0,37700,1.3852785145888593,37700,0,1.0,1,1929,EAST,Compliant
+28029,Plymouth Poultry,NonResidential,Refrigerated Warehouse,Refrigerated Warehouse,43452.0,22890,1.8982961992136305,22890,0,1.0,1,1970,GREATER DUWAMISH,Compliant
+29552,705 5th Avenue,NonResidential,Large Office,Office,281566.0,273185,1.0306788440068086,273185,0,1.0,11,2000,DOWNTOWN,Compliant
+33527,SCCC WOOD CONSTRUCTION,NonResidential,University,College/University,67750.0,57468,1.178916962483469,57468,0,2.0,1,2013,CENTRAL,Compliant
+33548,SCCC SCIENCE AND MATH,NonResidential,University,College/University,84300.0,84000,1.0035714285714286,84000,0,1.0,5,2006,EAST,Compliant
+35391,LUMEN Commercial,NonResidential,Retail Store,Retail Store,38428.0,34010,1.1299029697147898,34010,0,1.0,4,2006,MAGNOLIA / QUEEN ANNE,Compliant
+37008,CenturyLink Field Event Center,NonResidential,Other,Parking,432903.0,333698,1.2972897649970931,333698,0,1.0,6,1999,GREATER DUWAMISH,Compliant
+40034,Sandpoint #29,NonResidential,Small- and Mid-Sized Office,Office,31845.0,21931,1.4520541698964935,21931,0,1.0,0,1960,NORTHEAST,Compliant
+40067,Olympic Block,NonResidential,Small- and Mid-Sized Office,Office,92723.0,73102,1.268405789171295,73102,0,1.0,6,1985,DOWNTOWN,Compliant
+41928,Safeway 1586 - 15th Ave,NonResidential,Supermarket / Grocery Store,Supermarket/Grocery Store,51841.0,51400,1.008579766536965,51400,0,1.0,1,2011,NORTH,Compliant
+45927,Reasearch and Training Building,NonResidential,Laboratory,Laboratory,181930.0,178000,1.0220786516853932,178000,0,1.0,8,2000,EAST,Compliant
+49699,21615-Seattle/10020 MartinLutherKing,NonResidential,Warehouse,Non-Refrigerated Warehouse,293707.0,45700,6.426849015317287,45700,0,1.0,2,1988,SOUTHEAST,Compliant
+49703,Catharine Blaine K-8,SPS-District K-12,K-12 School,K-12 School,119685.0,116101,1.0308696738184857,116101,0,1.0,1,1952,MAGNOLIA / QUEEN ANNE,Missing Data
+49705,Magnuson,Nonresidential COS,Other,Other - Recreation,564258.0,502030,1.12395275182758,502030,0,8.0,0,1929,NORTHEAST,Compliant
+49715,Elm Hall,NonResidential,Residence Hall,Residence Hall/Dormitory,207017.0,136758,1.513746910601208,136758,0,1.0,5,2012,NORTHEAST,Compliant
+49718,South Transfer Station,Nonresidential COS,Other,Other - Utility,138602.0,137138,1.0106753780863071,137138,0,2.0,2,2012,GREATER DUWAMISH,Compliant
+49858,The Northwest School 401,NonResidential,K-12 School,K-12 School,38000.0,35780,1.0620458356623812,35780,0,1.0,2,2014,EAST,Compliant
+49850,Paul G Allen Athletic Center,NonResidential,K-12 School,K-12 School,63500.0,48925,1.2979049565661727,48925,0,1.0,2,2014,NORTHWEST,Compliant
+49865,SOUTH,NonResidential,Other,Lifestyle Center,318986.0,305025,1.0457700188509138,65773,239252,1.0,6,2013,NORTHEAST,Compliant
+49926,SCCC MAIN BROADWAY/EDISON,NonResidential,University,College/University,472384.0,428347,1.1028068365133874,428347,0,1.0,3,1925,EAST,Compliant
+49940,Virginia Mason Medical Center - 2149,NonResidential,Hospital,Hospital (General Medical & Surgical),1010135.0,374466,2.697534622635967,374466,0,1.0,8,1920,EAST,Compliant
+50002,Audi Seattle UVA Bldg,NonResidential,Other,Parking,83600.0,33648,2.4845458868283403,33648,0,1.0,3,2014,NORTHEAST,Compliant
+50035,Hilton Garden Inn Seattle,NonResidential,Hotel,Hotel,159500.0,144614,1.1029360919413058,144614,0,1.0,14,2015,DOWNTOWN,Compliant
+50039,Honda of Seattle/Toyota of Seattle,NonResidential,Other,Parking,202171.0,108036,1.87132992706135,108036,0,1.0,2,2015,GREATER DUWAMISH,Compliant
+50081,Hamlin Robinson School,NonResidential,K-12 School,K-12 School,45728.0,45000,1.0161777777777778,45000,0,1.0,3,2015,GREATER DUWAMISH,Compliant
+50101,Burke Museum,NonResidential,University,College/University,68916.0,68072,1.012398636737572,68072,0,1.0,1,1962,NORTHEAST,Compliant

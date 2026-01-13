@@ -1,0 +1,5 @@
+ComplianceStatus,Error/Missing,Ratio < 1.00,1.00 ≤ Ratio ≤ 1.05,1.05 < Ratio ≤ 1.30,Ratio > 1.30
+Compliant,,,42.22,40.0,17.78
+Error - Correct Default Data,,,58.33,29.17,12.5
+Missing Data,,,57.14,42.86,0.0
+Non-Compliant,,,50.0,50.0,0.0

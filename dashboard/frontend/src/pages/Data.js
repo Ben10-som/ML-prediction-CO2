@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Download } from 'lucide-react';
 import './Data.css';
 
 function Data() {
@@ -44,7 +45,7 @@ function Data() {
                     <p>Exploration des données brutes utilisées pour l'entraînement.</p>
                 </div>
                 <button onClick={downloadCSV} className="btn-download">
-                    📥 Télécharger CSV
+                    <Download size={18} /> Télécharger CSV
                 </button>
             </div>
 
