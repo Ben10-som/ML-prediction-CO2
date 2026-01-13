@@ -48,16 +48,28 @@ Le choix d’ordre est documenté dans `reports/notebook_1/compte_rendu.md`.
 ### 4) Modélisation
 ![Meilleur modèle MLflow](/figures/mlflow/best.png)
 - Notebooks de modélisation : `notebooks/06_modeling_pipeline.ipynb` et variantes.
-- Modèle final référencé : `best_model/best_model_ridge.joblib`.
+- Deux modèles Ridge ont été retenus :
+  - Avec `ENERGYSTARScore` : `best_model/seattle_energy_2016_ml/best_model_ridge.joblib`.
+  - Sans `ENERGYSTARScore` : `best_model/CO2_No_EnergyStar/best_model_ridge.joblib`.
 
 ## Résultats modèle (snapshot)
-D’après `best_model/best_model_metrics.csv` (ridge) :
+D’après les métriques MLflow (ridge) :
+
+Avec `ENERGYSTARScore` (`best_model/seattle_energy_2016_ml/best_model_metrics.csv`) :
 
 | Metric | Test |
 | --- | --- |
 | R2 | 0.8082 |
 | MAE | 0.4977 |
 | RMSE | 0.6305 |
+
+Sans `ENERGYSTARScore` (`best_model/CO2_No_EnergyStar/best_model_metrics.csv`) :
+
+| Metric | Test |
+| --- | --- |
+| R2 | 0.7610 |
+| MAE | 0.5545 |
+| RMSE | 0.7039 |
 
 ## API & Dashboard
 - API FastAPI : `dashboard/backend/api.py`.
