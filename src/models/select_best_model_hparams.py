@@ -27,7 +27,7 @@ def select_best(cfg: DictConfig):
     # Racine projet
     current_file = Path(__file__).resolve()
     project_root = current_file.parent.parent.parent
-    best_model_dir = project_root / "best_model"
+    best_model_dir = project_root / "best_model"/ cfg.project.name
     best_model_dir.mkdir(exist_ok=True)
 
     # Récupération de l’expérience
