@@ -2,6 +2,7 @@ env/
 **/*.csv
 # Ré-autoriser les CSV dans reports et ses sous-dossiers
 !reports/**/*.csv
+!figures/**/*.csv
 
 **/*.parquet
 **/__pycache__/
@@ -10,3 +11,6 @@ test/tmp/
 node_modules
  # Log d'execution et résultats de Hydra. permet de tracer chaque run Hydra et garentir la reproductibilité.
 outputs/**
+
+mlruns/
+multirun/
