@@ -5,9 +5,10 @@ import numpy as np
 from pathlib import Path
 import joblib
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, RobustScaler
 from sklearn.impute import SimpleImputer
 from datetime import datetime
 import json
@@ -28,7 +29,8 @@ predictions_file = data_folder / "predictions.json"
 if model_path.exists():
     model = joblib.load(model_path)
 else:
-    model = LinearRegression()
+    # Fallback si le fichier n'existe pas encore
+    model = None 
 
 # ----------------------
 # FastAPI
@@ -172,6 +174,29 @@ def save_prediction_json(data_dict, predicted_CO2):
         json.dump(all_preds, f, indent=4)
 
 # ----------------------
+# Fonction pour construire le DataFrame compatible modèle
+# ----------------------
+def build_model_input(input_data: CO2Input, model_feature_names: list):
+    """
+    Construit un DataFrame complet pour le modèle en respectant toutes les colonnes attendues
+    """
+    # 1. Calcul des features à partir de l'input utilisateur
+    user_features = calculate_features(input_data)  # ton calcul habituel
+
+    # 2. Initialisation de toutes les colonnes du modèle à NaN
+    model_input = {col: np.nan for col in model_feature_names}
+
+    # 3. Remplir les colonnes fournies par l'utilisateur
+    for col, val in user_features.items():
+        # S'assurer que la colonne existe dans le modèle
+        if col in model_input:
+            model_input[col] = val
+
+    # 4. Convertir en DataFrame
+    df = pd.DataFrame([model_input])
+    return df
+
+# ----------------------
 # Endpoints
 # ----------------------
 @app.get("/")
@@ -180,19 +205,31 @@ def home():
 
 @app.post("/predict")
 def predict(input_data: CO2Input):
-    # 1. Calcul des features backend
-    computed_features = calculate_features(input_data)
-    
-    # 2. Creation DataFrame
-    df = pd.DataFrame([computed_features])
-    
+    if model is None:
+        raise HTTPException(status_code=500, detail="Modèle non chargé. Veuillez lancer le /retrain.")
+
     try:
-        prediction = model.predict(df)
+        # 1. Récupérer toutes les colonnes attendues par le modèle
+        # Pour un Pipeline avec ColumnTransformer, on veut les features d'entrée (feature_names_in_)
+        if hasattr(model.named_steps['columntransformer'], 'feature_names_in_'):
+            model_feature_names = model.named_steps['columntransformer'].feature_names_in_
+        elif hasattr(model.named_steps['columntransformer'], 'get_feature_names_out'):
+            # Fallback (attention, get_feature_names_out renvoie souvent les noms de sortie préfixés)
+            model_feature_names = model.named_steps['columntransformer'].get_feature_names_out()
+        else:
+            raise HTTPException(status_code=500, detail="Impossible de récupérer les colonnes du modèle")
+
+        # 2. Construire le DataFrame complet
+        df_model = build_model_input(input_data, model_feature_names)
+
+        # 3. Faire la prédiction
+        prediction = model.predict(df_model)
+        pred_value = float(np.expm1(prediction[0]))  # inverse du log1p utilisé à l'entraînement
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur prédiction: {str(e)}")
 
-    pred_value = float(prediction[0])
-    # On sauvegarde l'input brut + la pred
+    # 4. Sauvegarder la prédiction
     save_prediction_json(input_data.dict(), pred_value)
 
     return {"prediction_CO2": pred_value}
@@ -235,6 +272,29 @@ def retrain():
         df_list = [pd.read_csv(f) for f in all_files]
         data = pd.concat(df_list, ignore_index=True)
 
+        # Feature Engineering pour l'entraînement (doit matcher calculate_features)
+        data["Age"] = data["DataYear"] - data["YearBuilt"]
+        lat0, lon0 = 47.6038, -122.3301
+        data["distance_to_center_proxy"] = np.sqrt((data["Latitude"] - lat0)**2 + (data["Longitude"] - lon0)**2)
+        data["Is_Downtown"] = (data["Neighborhood"].astype(str).str.strip().str.upper() == "DOWNTOWN").astype(int)
+        
+        data["log_GFA"] = np.log(data["PropertyGFATotal"].clip(lower=1))
+        data["surface_per_building"] = data["PropertyGFATotal"] / (data["NumberofBuildings"].clip(lower=1) + 1e-6)
+        data["surface_per_floor"] = data["PropertyGFATotal"] / (data["NumberofFloors"].clip(lower=1) + 1e-6)
+        
+        if "PropertyGFAParking" in data.columns:
+            data["Parking_share"] = data["PropertyGFAParking"] / (data["PropertyGFATotal"] + 1e-6)
+            data["Has_Parking"] = (data["PropertyGFAParking"] > 0).astype(int)
+        else:
+            data["Parking_share"] = 0
+            data["Has_Parking"] = 0
+            
+        data["Has_ENERGYSTAR"] = data["ENERGYSTARScore"].notna().astype(int)
+        data["Age_ENERGYSTAR"] = data["Age"] * data["ENERGYSTARScore"].fillna(0)
+        
+        for c in ["Has_Gas", "Has_Steam"]:
+            if c not in data.columns: data[c] = 0
+
         # Liste des features
         numeric_features = [
             "NumberofFloors", "NumberofBuildings", "Age", "ENERGYSTARScore",
@@ -254,12 +314,13 @@ def retrain():
              raise HTTPException(status_code=400, detail=f"Colonnes manquantes dans le CSV : {missing_cols}")
 
         X = data[X_cols]
-        y = data[y_col]
+        # Log-transformation de la target
+        y = np.log1p(data[y_col])
 
         # Pipeline de prétraitement
         numeric_transformer = make_pipeline(
             SimpleImputer(strategy='median'),
-            StandardScaler()
+            RobustScaler() # Plus robuste aux outliers que StandardScaler
         )
 
         categorical_transformer = make_pipeline(
@@ -275,7 +336,11 @@ def retrain():
         )
 
         global model
-        model = make_pipeline(preprocessor, LinearRegression())
+        # RandomForest matchant le notebook
+        model = make_pipeline(
+            preprocessor, 
+            RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
+        )
         model.fit(X, y)
 
         # Sauvegarde du modèle
