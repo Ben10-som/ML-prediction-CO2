@@ -179,7 +179,7 @@ npm start
       </td>
       <td align="center">
         <a href="https://github.com/proslawa">
-          <img src="https://avatars.githubusercontent.com/proslawa?v=4" width="80" alt="Lawa Foumsou PROSPERE" />
+          <img src="https://avatars.githubusercontent.com/proslawa?v=4" width="80" alt="Lawa Foumsou PROSPER" />
         </a>
         <br />
         Lawa Foumsou PROSPERE
