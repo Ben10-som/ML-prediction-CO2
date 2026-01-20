@@ -182,7 +182,7 @@ npm start
           <img src="https://avatars.githubusercontent.com/proslawa?v=4" width="80" alt="Lawa Foumsou PROSPER" />
         </a>
         <br />
-        Lawa Foumsou PROSPERE
+        Lawa Foumsou PROSPER
       </td>
       <td align="center">
         <a href="https://github.com/tamsir03">
